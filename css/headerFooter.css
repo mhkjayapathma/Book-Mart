@@ -1,0 +1,106 @@
+@charset "utf-8";
+#navbarSupportedContent1 .form-inline.my-2.my-lg-0 .btn.btn-outline-success.my-2.my-sm-0 {
+	background-color:  #E5E5E5;
+	
+}
+.container-fluid .container .navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light {
+    background-color: #162127;
+    background-image: -webkit-linear-gradient(270deg,rgba(28,42,50,1.00) 0.52%,rgba(22,33,39,1.00) 100%);
+    background-image: -moz-linear-gradient(270deg,rgba(28,42,50,1.00) 0.52%,rgba(22,33,39,1.00) 100%);
+    background-image: -o-linear-gradient(270deg,rgba(28,42,50,1.00) 0.52%,rgba(22,33,39,1.00) 100%);
+    background-image: linear-gradient(180deg,rgba(28,42,50,1.00) 0.52%,rgba(22,33,39,1.00) 100%);
+}
+.search-form{
+	background-color: #fff;
+	width:300px;
+	height:35px;
+	display:flex;
+	margin-right: 10px;
+}
+.search-input{
+	flex:1;
+	border: none;
+	outline: none;
+	padding-left: 10px;
+}
+.search-btn{
+	background:#6FECD3;
+	padding: 0px 15px;
+	border: none;
+	outline: none;
+	letter-spacing: 1px;
+	cursor: pointer;
+}
+
+.navbar-nav.mr-auto .nav-item.active .nav-link {
+    color: #FDFDFD;
+    font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 150;
+}
+
+.navbar-nav.mr-auto .nav-item.dropdown #navbarDropdown1 {
+    color: #FFFFFF;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 150;
+}
+
+
+.navbar-nav.mr-auto .nav-item .nav-link {
+    color: #FFFFFF;
+	font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 150;
+}
+footer{
+    background-color: #162127;
+    padding-top: 21px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.5em;
+    font-weight: 400;
+	font-family: Poppins,sans-serif;
+}
+
+.footer-imglogo{
+	margin-left: 1em;
+}
+.social-media-logo{
+	height: 2em;
+	width: 2em;
+	border-radius: 50%;
+	margin-top: 15px;
+}
+.blue-btn a{
+  color: white;
+  text-decoration:none;
+  text-align: center;
+  display:block;
+}
+.blue-btn{
+  height: 50px;
+  font: 700 1em/3.5em Arial,sans-serif;
+  overflow: hidden;
+  width: 150px;
+  background-color: #111336;
+  border-radius: 20px;
+}
+.blue-btn:hover{
+   background-color: #03404F; 
+}
+.input-field {
+			padding: 24px;
+			background-color: #B4B4B4;
+			border: none;
+			border-radius: 20px;
+			height: 50px;
+			width: 250px;
+			color: #000000;
+			outline: none;
+			z-index: 0;
+            -webkit-tap-highlight-color: transparent;
+			line-height: 1;
+}
+.footer-copyright{
+    padding: 10px;
+	width: 100%;
+	text-align: center;
+}

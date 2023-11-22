@@ -6,7 +6,8 @@
     <title>BookMart</title>
     <!-- Bootstrap -->
 	<link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-	<link href="stylesheet.css" rel="stylesheet" type="text/css">
+	<link href="css/indexStyle.css" rel="stylesheet" type="text/css">
+	<link href="css/headerFooter.css" rel="stylesheet" type="text/css">
   </head>
   <body style="padding-top: 70px">
   	<div class="container-fluid">
@@ -16,7 +17,7 @@
   	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
   	      <div class="collapse navbar-collapse" id="navbarSupportedContent1">
   	        <ul class="navbar-nav mr-auto">
-  	          <li class="nav-item active"> <a class="nav-link" href="home.html">Home <span class="sr-only">(current)</span></a> </li>
+  	          <li class="nav-item active"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
   	          
   	          <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories </a>
   	            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
@@ -42,10 +43,11 @@
     		 </script>
 				
   	          <li class="nav-item"> <a class="nav-link" href="signin.html">Sign In&nbsp;</a></li>
+  	          <li class="nav-item"> <a class="nav-link" href="signin.html">&nbsp;</a></li>
             </ul>
-  	        <form class="form-inline my-2 my-lg-0">
-  	          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-  	          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  	        <form class="search-form">
+  	          <input class="search-input" type="search" placeholder="Search" aria-label="Search">
+  	          <button class="search-btn" type="submit">Search</button>
             </form>
           </div>
         </nav>
@@ -113,7 +115,10 @@
                 <h5 class="card-title">Forget Me Not</h5>
                 <p class="card-text"> Charitha Attalage</p>
                 <p class="card-price">LKR1080.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
+				<div class="btn-footer">
+				  <input type="subm" href="#" class="btn btn-primary">Add To Cart</div>
+				  </div>
+                
             </div>
 	      </div>
 		  <div class="col-md-2">
@@ -220,10 +225,10 @@
                 <p class="card-price">LKR495.00</p>
                 <a href="#" class="btn btn-primary">Add To Cart</a></div>
           </div></div>
-	  </div>
+	    </div>
 	    <div class="more-btn-class">
 	  	<a class="more-btn" href="novels.html" > More </a>
-	  </div>
+	    </div>
 	    <br><br>
 		
 		<h2 class="category_name">Short Story</h2>

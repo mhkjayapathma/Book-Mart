@@ -1,3 +1,31 @@
+<?php
+// Database connection
+		$server="localhost";
+        $user="root";
+        $pw="";
+        $db="bookmart";
+
+$conn = new mysqli($server, $user, $pw, $db);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetching book list from the database
+$sql = "SELECT * FROM book";
+$result = $conn->query($sql);
+
+$books = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $books[] = $row;
+    }
+}
+
+
+$conn->close();
+?>
+
 <!DOCTYPE html><html lang="en">
   <head>
     <meta charset="utf-8">
@@ -108,62 +136,25 @@
   <div class="container" style="margin-top:70px;">
 		<h2 class="category_name">New Arrivals</h2>
 	  <hr class="hr-category">
-	    <div class="row ">
-		  <div class="col-md-2 ">
-		    <div class="card col-md-13"> <img class="card-img-top" src="images/New Arival/book1.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Forget Me Not</h5>
-                <p class="card-text"> Charitha Attalage</p>
-                <p class="card-price">LKR1080.00</p>
-				<div class="btn-footer">
-				  <input type="subm" href="#" class="btn btn-primary">Add To Cart</div>
-				  </div>
-                
-            </div>
-	      </div>
-		  <div class="col-md-2">
-			  <div class="card  col-md-13"> <img class="card-img-top" src="images/New Arival/book2.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Cyber Raga</h5>
-                <p class="card-text"> Ajantha Senevirathna</p>
-                <p class="card-price">LKR760.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div></div>
-		  <div class="col-md-2">
-			  <div class="card col-md-13"> <img class="card-img-top" src="images/New Arival/book3.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Akalachari</h5>
-                <p class="card-text"> Vipulasena Pathiraja</p>              
-                <p class="card-price">LKR1800.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div></div>
-		  <div class="col-md-2">
-			  <div class="card col-md-13"> <img class="card-img-top" src="images/New Arival/book4.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Meghana</h5>
-                <p class="card-text"> NIPU DIAS</p>      
-                <p class="card-price">LKR2070.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div></div>
-		  <div class="col-md-2">
-		    <div class="card col-md-13"> <img class="card-img-top" src="images/New Arival/img101.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Monara Pihatu</h5>
-                <p class="card-text"> Amiththa Weerasinghe</p>               
-                <p class="card-price">LKR1296.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a>
-			  </div>
-		    </div>
-		  </div>
-		  <div class="col-md-2">
-		    <div class="card col-md-13"> <img class="card-img-top" src="images/New Arival/img102.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Weeranubadda</h5>
-                <p class="card-text"> Prasanna Irasinha</p>              
-                <p class="card-price">LKR1215.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div>
-		  </div>
+	    <div class="row">
+		<?php foreach ($books as $book): ?>
+			<div class="col-md-3">
+			  <div class="card  col-md-12"> <img class="card-img-top" src="images/New Arival/book2.jpg" alt="Card image cap">
+              	<div class="card-body">
+					<h5 class="card-title"><?php echo $book['bname']; ?></h5>
+					<p class="card-text"><?php echo $book['bauthor']; ?></p>
+					<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
+					<div class="card-footer">
+						<a href="#" class="btn btn-primary">Add To Cart</a>
+					</div>
+				</div>
+           	 </div>
+			</div>
+		<?php endforeach; ?>
+		
+		</div>
+		  
+		  
     </div>  
       <br><br>
 		
@@ -506,6 +497,40 @@
         </div></div>
       </div>
   </div>
+ 
+  <div class="row">
+	<div class="col-md-2">
+		<div class="card">
+			test
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="card">
+			test
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="card">
+			test
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="card">
+			test
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="card">
+			test
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="card">
+			test
+		</div>
+	</div>
+  </div>
+
 
   	
 	<footer>

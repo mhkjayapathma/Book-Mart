@@ -17,8 +17,8 @@ $resultNewArrival = $conn->query($queryNewArrival);
 
 $booksNewArrival = [];
 if ($resultNewArrival->num_rows > 0) {
-    while ($row = $resultNewArrival->fetch_assoc()) {
-        $booksNewArrival[] = $row;
+    while ($rowNewArrival = $resultNewArrival->fetch_assoc()) {
+        $booksNewArrival[] = $rowNewArrival;
     }
 }
 
@@ -30,6 +30,16 @@ $booksNovel = [];
 if ($resultNovel->num_rows > 0) {
     while ($row = $resultNovel->fetch_assoc()) {
         $booksNovel[] = $row;
+    }
+}
+// Fetching Short story from the database
+$queryShort = "SELECT * FROM book 	WHERE btype='Short' ORDER BY bookID DESC LIMIT 6;";
+$resultShort = $conn->query($queryShort);
+
+$booksShort = [];
+if ($resultShort->num_rows > 0) {
+    while ($rowShort = $resultShort->fetch_assoc()) {
+        $booksShort[] = $rowShort;
     }
 }
 
@@ -147,7 +157,7 @@ $conn->close();
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
 					<?php
-						$imagePath = "images/Novels/" . $book['bimage'];
+						$imagePath = "images/Short Story/" . $book['bimage'];
 						?>
 						<img src="<?php echo $imagePath; ?>">
 					
@@ -163,7 +173,7 @@ $conn->close();
 			</div>
 		<?php endforeach; ?>
 		</div>	  
-      	<br><br>
+      	<br><br><br>
 
 		<h2 class="category_name">Novels</h2>
 	  	<hr class="hr-category">
@@ -191,7 +201,8 @@ $conn->close();
 	    <div class="more-btn-class">
 	  	<a class="more-btn" href="novels.html" > More </a>
 	    </div>
-	    <br><br>
+	
+	    <br><br><br>
 		
 		<h2 class="category_name">Short Story</h2>
 		<hr class="hr-category">
@@ -200,7 +211,7 @@ $conn->close();
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
 					<?php
-						$imagePath = "images/Novels/" . $book['bimage'];
+						$imagePath = "images/Short Story/" . $book['bimage'];
 						?>
 						<img src="<?php echo $imagePath; ?>">
 					
@@ -219,7 +230,8 @@ $conn->close();
 	    <div class="more-btn-class">
 	  	<a class="more-btn" href="shortstory.html" > More </a>
 	  	</div>
-	  <br><br>
+	</div>
+	  <br><br><br>
 		
 		<h2 class="category_name">Fantasy</h2>
 		<hr class="hr-category">
@@ -355,7 +367,7 @@ $conn->close();
   	          <p class="card-price">LKR 1980.00</p>
 		
         <a href="#" class="btn btn-primary">Add To Cart</a> </div>
-    </div>
+    
     	</div>
           <div class="col-md-2">
     <div class="card col-md-13"> <img src="images/Fiction/fiction2.jpg" alt="" class="img-fluid card-img-top"/>
@@ -438,7 +450,7 @@ $conn->close();
 		        
         </div></div>
       </div>
-  </div>
+  
  
   <div class="row">
 	<div class="col-md-2">

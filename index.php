@@ -11,14 +11,25 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetching book list from the database
-$sql = "SELECT * FROM book";
-$result = $conn->query($sql);
+// Fetching New Arival from the database
+$queryNewArrival = "SELECT * FROM book ORDER BY bookID DESC LIMIT 6;";
+$resultNewArrival = $conn->query($queryNewArrival);
 
-$books = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $books[] = $row;
+$booksNewArrival = [];
+if ($resultNewArrival->num_rows > 0) {
+    while ($row = $resultNewArrival->fetch_assoc()) {
+        $booksNewArrival[] = $row;
+    }
+}
+
+// Fetching Novel from the database
+$queryNovel = "SELECT * FROM book 	WHERE btype='Novel' ORDER BY bookID DESC LIMIT 6;";
+$resultNovel = $conn->query($queryNovel);
+
+$booksNovel = [];
+if ($resultNovel->num_rows > 0) {
+    while ($row = $resultNovel->fetch_assoc()) {
+        $booksNovel[] = $row;
     }
 }
 
@@ -38,184 +49,145 @@ $conn->close();
   </head>
   <body style="padding-top: 70px">
   	<div class="container-fluid">
-  	  <div class="container">
-  	    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light"> 
-		<a class="navbar-brand" href="home.html"> <img src="images/BookMart_logo.png" alt="" width="120" height="48"  class="logo" ></a>
-  	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-  	      <div class="collapse navbar-collapse" id="navbarSupportedContent1">
-  	        <ul class="navbar-nav mr-auto">
-  	          <li class="nav-item active"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
-  	          
-  	          <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories </a>
-  	            <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-					<a class="dropdown-item" href="novels.html">Novels</a> 
-					<a class="dropdown-item" href="shortstory.html">Short Story</a>
-                  <a class="dropdown-item" href="fantacy.html">Fantasy</a>
-				  <a class="dropdown-item" href="thriller.html">Thriller</a> 
-					<a class="dropdown-item" href="fiction.html">Fiction</a>
-			    </div>
-              </li>
-				<li class="nav-item"> <a class="nav-link" href="about.html">About&nbsp;</a> </li>
-  	          <li id="scrollButton" class="nav-item"> <a class="nav-link" style="cursor: pointer">Contact Us&nbsp;</a></li>
-			  <script>
-					// script.js
-					document.addEventListener("DOMContentLoaded", function () {
-					var scrollButton = document.getElementById("scrollButton");
-					// Add a click event listener to the button
-					scrollButton.addEventListener("click", function () {
-					// Scroll to the bottom of the page
-					window.scrollTo(0, document.body.scrollHeight);
-					});
-					});
-    		 </script>
+		<div class="container">
+			<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light"> 
+			<a class="navbar-brand" href="home.html"> <img src="images/BookMart_logo.png" alt="" width="120" height="48"  class="logo" ></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent1">
+				<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
 				
-  	          <li class="nav-item"> <a class="nav-link" href="signin.html">Sign In&nbsp;</a></li>
-  	          <li class="nav-item"> <a class="nav-link" href="signin.html">&nbsp;</a></li>
-            </ul>
-  	        <form class="search-form">
-  	          <input class="search-input" type="search" placeholder="Search" aria-label="Search">
-  	          <button class="search-btn" type="submit">Search</button>
-            </form>
-          </div>
-        </nav>
-      </div>
-</div>
-	
-	
-    <div id="video-carousel-example" class="carousel slide carousel-fade" data-ride="carousel" >
-  	  <ol class="carousel-indicators">
-  	    <li data-target="#video-carousel-example" data-slide-to="0" class="active"></li>
-  	    <li data-target="#video-carousel-example" data-slide-to="1"></li>
-  	    <li data-target="#video-carousel-example" data-slide-to="2"></li>
-      </ol>
-		
-  	  <div class="carousel-inner" role="listbox">
-  		<div class="carousel-item active " style="height:600px; ">
-			<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
-  	        <source src="video1.mp4" type="video/mp4">
-          </video>
-			<div class="carousel-caption">
-       	    <h1>Knowledge</h1>
-  	        
-            </div>	
-			
-	    </div>
-			
-        <div class="carousel-item " style="height:600px; ">
-  	      <video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
-  	        <source src="video2.mp4" type="video/mp4">
-    	  </video>
-  	      <div class="carousel-caption">
-  	        <h1 style="color:black;">Becomes</h1>
-          </div>
-	</div>
-			
-		<div class="carousel-item " style=" width:100%; height:600px; ">
-  	      
-  	      <video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
-  	        <source src="video3.mp4" type="video/mp4">
-          </video>
-  	      <div class="carousel-caption">
-  	        <h1>Power</h1>
-          </div>
+				<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+						<a class="dropdown-item" href="novels.html">Novels</a> 
+						<a class="dropdown-item" href="shortstory.html">Short Story</a>
+					<a class="dropdown-item" href="fantacy.html">Fantasy</a>
+					<a class="dropdown-item" href="thriller.html">Thriller</a> 
+						<a class="dropdown-item" href="fiction.html">Fiction</a>
+					</div>
+				</li>
+					<li class="nav-item"> <a class="nav-link" href="about.html">About&nbsp;</a> </li>
+				<li id="scrollButton" class="nav-item"> <a class="nav-link" style="cursor: pointer">Contact Us&nbsp;</a></li>
+				<script>
+						// script.js
+						document.addEventListener("DOMContentLoaded", function () {
+						var scrollButton = document.getElementById("scrollButton");
+						// Add a click event listener to the button
+						scrollButton.addEventListener("click", function () {
+						// Scroll to the bottom of the page
+						window.scrollTo(0, document.body.scrollHeight);
+						});
+						});
+				</script>
+					
+				<li class="nav-item"> <a class="nav-link" href="signin.html">Sign In&nbsp;</a></li>
+				<li class="nav-item"> <a class="nav-link" href="signin.html">&nbsp;</a></li>
+				</ul>
+				<form class="search-form">
+				<input class="search-input" type="search" placeholder="Search" aria-label="Search">
+				<button class="search-btn" type="submit">Search</button>
+				</form>
+			</div>
+			</nav>
 		</div>
-    </div>
-															  
-  <a class="carousel-control-prev" href="#video-carousel-example" role="button" data-slide="prev"> 
-	  <span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-	  <span class="sr-only">Previous</span>
-  </a> 
-  <a class="carousel-control-next" href="#video-carousel-example" role="button" data-slide="next"> 
-	  <span class="carousel-control-next-icon" aria-hidden="true"></span> 
-	  <span class="sr-only">Next</span>
-  </a>
-</div><br><br>
-  <h2 class="heading1">The best books on Everything.</h2>
-	
-  <div class="container" style="margin-top:70px;">
-		<h2 class="category_name">New Arrivals</h2>
-	  <hr class="hr-category">
-	    <div class="row">
-		<?php foreach ($books as $book): ?>
-			<div class="col-md-3">
-			  <div class="card  col-md-12"> <img class="card-img-top" src="images/New Arival/book2.jpg" alt="Card image cap">
-              	<div class="card-body">
-					<h5 class="card-title"><?php echo $book['bname']; ?></h5>
-					<p class="card-text"><?php echo $book['bauthor']; ?></p>
-					<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
-					<div class="card-footer">
-						<a href="#" class="btn btn-primary">Add To Cart</a>
+
+		<div id="video-carousel-example" class="carousel slide carousel-fade" data-ride="carousel" >
+			<ol class="carousel-indicators">
+				<li data-target="#video-carousel-example" data-slide-to="0" class="active"></li>
+				<li data-target="#video-carousel-example" data-slide-to="1"></li>
+				<li data-target="#video-carousel-example" data-slide-to="2"></li>
+			</ol>
+			
+			<div class="carousel-inner" role="listbox">
+				<div class="carousel-item active " style="height:600px; ">
+					<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
+						<source src="video1.mp4" type="video/mp4">
+					</video>
+					<div class="carousel-caption">
+						<h1>Knowledge</h1>
+					</div>	
+				</div>
+				
+				<div class="carousel-item " style="height:600px; ">
+					<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
+						<source src="video2.mp4" type="video/mp4">
+					</video>
+					<div class="carousel-caption">
+						<h1 style="color:black;">Becomes</h1>
 					</div>
 				</div>
-           	 </div>
+			
+				<div class="carousel-item " style="height:600px; ">
+					<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
+						<source src="video3.mp4" type="video/mp4">
+					</video>
+					<div class="carousel-caption">
+						<h1>Power</h1>
+					</div>
+				</div>
+			</div>
+		</div>													  
+		<a class="carousel-control-prev" href="#video-carousel-example" role="button" data-slide="prev"> 
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
+			<span class="sr-only">Previous</span>
+		</a> 
+		<a class="carousel-control-next" href="#video-carousel-example" role="button" data-slide="next"> 
+			<span class="carousel-control-next-icon" aria-hidden="true"></span> 
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+	<br><br>
+
+	<!--- products categories--->
+  	<div class="container" style="margin-top:70px;">
+		<h2 class="category_name">New Arrival</h2>
+	  	<hr class="hr-category">
+	    <div class="row">
+		<?php foreach ($booksNewArrival as $book): ?>
+			<div class="col-md-2">
+			  	<div class="card  col-md-13"> 
+					<?php
+						$imagePath = "images/Novels/" . $book['bimage'];
+						?>
+						<img src="<?php echo $imagePath; ?>">
+					
+					<div class="card-body">
+						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
+						<p class="card-text"><?php echo $book['bauthor']; ?></p>
+						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
+						<div class="card-footer">
+							<a href="#" class="btn btn-primary">Add To Cart</a>
+						</div>
+					</div>
+           	 	</div>
 			</div>
 		<?php endforeach; ?>
-		
-		</div>
-		  
-		  
-    </div>  
-      <br><br>
-		
+		</div>	  
+      	<br><br>
+
 		<h2 class="category_name">Novels</h2>
-	  <hr class="hr-category">
-		<div class="row">
-		  <div class="col-md-2">
-			  <div class="card col-md-13"> <img class="card-img-top" src="images/Novels/book5.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Sajjayana</h5>
-                <p class="card-text"> Achala Dilrukshi</p>
-                <p class="card-price">LKR1755.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a>
-              </div>
-            </div></div>
-		  <div class="col-md-2"><div class="card col-md-13"> <img class="card-img-top" src="images/Novels/book6.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Back To School</h5>
-                <p class="card-text">  Mallawarachchi</p>
-                <p class="card-price">LKR900.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a>
-			  </div>
-            </div>
-          </div>
-		  <div class="col-md-2">
-            <div class="card col-md-13"> 
-				<img class="card-img-top" src="images/Novels/book7.jpg" alt="Card image cap">
-                <div class="card-body">
-                <h5 class="card-title">Sirasalawanya</h5>
-                <p class="card-text">CHAMIL HARSHANA</p>             
-                <p class="card-price">LKR920.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a>
-				</div>
-            </div>
-          </div>
-		  <div class="col-md-2">
-			  <div class="card col-md-13"> 
-				  <img class="card-img-top" src="images/Novels/book8.jpg" alt="Card image cap">
-                <div class="card-body">
-                <h5 class="card-title">Pini Yahan</h5>
-                <p class="card-text"> Chethana De Silva</p>       
-                <p class="card-price"> LKR1800.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a>
-			  </div>
-          </div></div>
-		  <div class="col-md-2"><div class="card col-md-13"> <img class="card-img-top" src="images/Novels/book9.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Viraga Raga</h5>
-                <p class="card-text">  Madushika Dilhani</p>
-               
-                <p class="card-price">LKR1296.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-          </div></div>
-		  <div class="col-md-2"><div class="card col-md-13"> <img class="card-img-top" src="images/Novels/book10.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Ada</h5>
-                <p class="card-text">  Anuhas Viduranga</p>
-               
-                <p class="card-price">LKR495.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-          </div></div>
-	    </div>
+	  	<hr class="hr-category">
+	    <div class="row">
+		<?php foreach ($booksNovel as $book): ?>
+			<div class="col-md-2">
+			  	<div class="card  col-md-13"> 
+					<?php
+						$imagePath = "images/Novels/" . $book['bimage'];
+						?>
+						<img src="<?php echo $imagePath; ?>">
+					
+					<div class="card-body">
+						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
+						<p class="card-text"><?php echo $book['bauthor']; ?></p>
+						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
+						<div class="card-footer">
+							<a href="#" class="btn btn-primary">Add To Cart</a>
+						</div>
+					</div>
+           	 	</div>
+			</div>
+		<?php endforeach; ?>
+		</div>	  
 	    <div class="more-btn-class">
 	  	<a class="more-btn" href="novels.html" > More </a>
 	    </div>
@@ -224,58 +196,29 @@ $conn->close();
 		<h2 class="category_name">Short Story</h2>
 		<hr class="hr-category">
 		<div class="row">
-		  <div class="col-md-2">
-			  <div class="card col-md-13"> <img class="card-img-top" src="images/Short Story/book13.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Life Flows</h5>
-                <p class="card-text"> THYAGA </p>
-                
-                <p class="card-price">LKR495.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div></div>
-		  <div class="col-md-2">
-			  <div class="card col-md-13"> 
-			  <img class="card-img-top" src="images/Short Story/book14.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Jewels</h5>
-                <p class="card-text"> Manel Eriyagama</p>
-                <p class="card-price">LKR600.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div></div>
-		  <div class="col-md-2"><div class="card col-md-13"> <img class="card-img-top" src="images/Short Story/book15.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">My Universe</h5>
-                <p class="card-text">  Rusiru Tharana</p>
-                <p class="card-price">LKR450.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div></div>
-		  <div class="col-md-2"><div class="card col-md-13"> <img class="card-img-top" src="images/Short Story/book16.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Unbound</h5>
-                <p class="card-text">  Sarasavi Poth</p>
-                <p class="card-price"> LKR180.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div></div>
-		  <div class="col-md-2">
-			  <div class="card col-md-13"> <img class="card-img-top" src="images/Short Story/book17.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Asanga Saha </h5>
-                <p class="card-text"> Swarnakanthi Perera</p>
-                <p class="card-price">LKR200.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div></div>
-		  <div class="col-md-2">
-			  <div class="card col-md-13"> <img class="card-img-top" src="images/Short Story/book18.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Pasuthevilla</h5>
-                <p class="card-text">  Saman D Waduge</p>
-                <p class="card-price">LKR280.00</p>
-                <a href="#" class="btn btn-primary">Add To Cart</a></div>
-            </div></div>
-	    </div>
+		<?php foreach ($booksShort as $book): ?>
+			<div class="col-md-2">
+			  	<div class="card  col-md-13"> 
+					<?php
+						$imagePath = "images/Novels/" . $book['bimage'];
+						?>
+						<img src="<?php echo $imagePath; ?>">
+					
+					<div class="card-body">
+						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
+						<p class="card-text"><?php echo $book['bauthor']; ?></p>
+						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
+						<div class="card-footer">
+							<a href="#" class="btn btn-primary">Add To Cart</a>
+						</div>
+					</div>
+           	 	</div>
+			</div>
+		<?php endforeach; ?>
+		</div>
 	    <div class="more-btn-class">
 	  	<a class="more-btn" href="shortstory.html" > More </a>
-	  </div>
+	  	</div>
 	  <br><br>
 		
 		<h2 class="category_name">Fantasy</h2>

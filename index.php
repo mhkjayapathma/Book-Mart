@@ -1,18 +1,18 @@
 <?php
 // Database connection
-$servername = "your_server_name";
-$username = "your_username";
-$password = "your_password";
-$dbname = "your_database_name";
+		$server="localhost";
+        $user="root";
+        $pw="";
+        $db="bookmart";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($server, $user, $pw, $db);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
 // Fetching book list from the database
-$sql = "SELECT * FROM books";
+$sql = "SELECT * FROM book";
 $result = $conn->query($sql);
 
 $books = [];
@@ -136,19 +136,21 @@ $conn->close();
 		<h2 class="category_name">New Arrivals</h2>
 	  <hr class="hr-category">
 	    <div class="row">
-
-		<div class="col-md-3">
+		<?php foreach ($books as $book): ?>
+			<div class="col-md-3">
 			  <div class="card  col-md-12"> <img class="card-img-top" src="images/New Arival/book2.jpg" alt="Card image cap">
               	<div class="card-body">
-					<h5 class="card-title">Cyber Raga</h5>
-					<p class="card-text"> Ajantha Senevirathna</p>
-					<p class="card-price">LKR760.00</p>
+					<h5 class="card-title"><?php echo $book['bname']; ?></h5>
+					<p class="card-text"><?php echo $book['bauthor']; ?></p>
+					<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 					<div class="card-footer">
 						<a href="#" class="btn btn-primary">Add To Cart</a>
 					</div>
 				</div>
            	 </div>
 			</div>
+		<?php endforeach; ?>
+		
 		</div>
 		  
 		  

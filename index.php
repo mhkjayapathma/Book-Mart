@@ -28,8 +28,8 @@ $resultNovel = $conn->query($queryNovel);
 
 $booksNovel = [];
 if ($resultNovel->num_rows > 0) {
-    while ($row = $resultNovel->fetch_assoc()) {
-        $booksNovel[] = $row;
+    while ($rowNovel = $resultNovel->fetch_assoc()) {
+        $booksNovel[] = $rowNovel;
     }
 }
 // Fetching Short story from the database
@@ -231,7 +231,7 @@ $conn->close();
 	  	<a class="more-btn" href="shortstory.html" > More </a>
 	  	</div>
 	</div>
-	  <br><br><br>
+	  <br><br>
 		
 		<h2 class="category_name">Fantasy</h2>
 		<hr class="hr-category">

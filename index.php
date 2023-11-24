@@ -83,52 +83,12 @@ $conn->close();
     <title>BookMart</title>
 	<link href="css/bootstrap-4.4.1.css" rel="stylesheet">
 	<link href="css/indexStyle.css" rel="stylesheet" type="text/css">
-	<link href="css/headerFooter.css" rel="stylesheet" type="text/css">
+	
   </head>
   <body style="padding-top: 70px">
-  	<div class="container-fluid">
+  	<!-- <div class="container-fluid"> -->
 		<!---Nav-Bar--->
-		<div class="container">
-			<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light"> 
-			<a class="navbar-brand" href="home.html"> <img src="images/BookMart_logo.png" alt="" width="120" height="48"  class="logo" ></a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent1">
-				<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"> <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a> </li>
-				
-				<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories </a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-						<a class="dropdown-item" href="novels.html">Novels</a> 
-						<a class="dropdown-item" href="shortstory.html">Short Story</a>
-					<a class="dropdown-item" href="fantacy.html">Fantasy</a>
-					<a class="dropdown-item" href="thriller.html">Thriller</a> 
-						<a class="dropdown-item" href="fiction.html">Fiction</a>
-					</div>
-				</li>
-					<li class="nav-item"> <a class="nav-link" href="about.html">About&nbsp;</a> </li>
-				<li id="scrollButton" class="nav-item"> <a class="nav-link" style="cursor: pointer">Contact Us&nbsp;</a></li>
-				<script>
-						// script.js
-						document.addEventListener("DOMContentLoaded", function () {
-						var scrollButton = document.getElementById("scrollButton");
-						// Add a click event listener to the button
-						scrollButton.addEventListener("click", function () {
-						// Scroll to the bottom of the page
-						window.scrollTo(0, document.body.scrollHeight);
-						});
-						});
-				</script>
-					
-				<li class="nav-item"> <a class="nav-link" href="signin.html">Sign In&nbsp;</a></li>
-				<li class="nav-item"> <a class="nav-link" href="signin.html">&nbsp;</a></li>
-				</ul>
-				<form class="search-form">
-				<input class="search-input" type="search" placeholder="Search" aria-label="Search">
-				<button class="search-btn" type="submit">Search</button>
-				</form>
-			</div>
-			</nav>
-		</div>
+		<?php include 'header.html'; ?>
 		<!---Carousel--->
 		<div id="video-carousel-example" class="carousel slide carousel-fade" data-ride="carousel" >
 			<ol class="carousel-indicators">
@@ -174,7 +134,7 @@ $conn->close();
 			<span class="carousel-control-next-icon" aria-hidden="true"></span> 
 			<span class="sr-only">Next</span>
 		</a>
-	</div>
+	<!-- </div> -->
 	<br><br>
 
 	<!--- products categories--->
@@ -386,73 +346,7 @@ $conn->close();
 	</div>
 
   	<!---Footer--->
-    <footer>
-			<div class="row">
-				<div class="col-md-6">
-					<img src="images/BookMart_logo.png" width="160" class="footer-imglogo img-fluid">
-				</div>
-				<div class="col-md-6">
-					<table>
-						<tr>
-						<td><img class="social-media-logo img-fluid" src="images/Footer/fb.png" alt="Facebook" style="width:2.15em; height:2.15em"></td>
-						<td><img class="social-media-logo img-fluid" src="images/Footer/insta.png" alt="Instagram"></td>
-						<td><img class="social-media-logo img-fluid" src="images/Footer/linke.png" alt="Linkedin"></td>
-						<td><img class="social-media-logo img-fluid" src="images/Footer/pint.png" alt="Pinterest"></td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		
-			<hr style="height:1px;border-width:0;color:gray;background-color:darkgrey; width:95%;">
-			<div class="row" >
-				<div class="col-md-3 left-padding">
-					<h6 style="text-transform: uppercase">&ensp;Categories</h6>
-					<ul>
-						<li><a href="novels.html" >Novels</a> </li>
-						<li><a href="shortstory.html">Short Story</a></li>
-						<li><a href="fantacy.html">Fantasy</a></li>
-						<li> <a href="thriller.html">Thriller</a> </li>
-						<li><a href="fiction.html">Fiction</a></li>			
-					</ul>
-				</div>
-				<div class="col-md-3">
-					<h6 style="text-transform: uppercase">&ensp;Quick Links</h6>
-					<ul>
-						<li><a href="index.html" >Home</a> </li>
-						<li><a href="about.html">About</a></li>
-						<li><a href="contactus.html">Contact us</a></li>
-						<li> <a href="signin.html">Sign in</a> </li>		
-					</ul>
-				</div>
-				<div class="col-md-3"> 
-					<dl>
-					<h6 >CONTACT US</h6>
-						<dd>&ensp;No.21, Stanly road, Nugegoda.</dd>
-						<dd>&ensp;+94 112 456 456</dd>
-						<dd>&ensp;bookmart@gmail.com</dd>
-					</dl>
-				</div>
-				<div class="col-md-3">
-					<h6>SIGN IN</h6>
-					<form>
-					<div style="padding-top:5px; padding-bottom: 10px" >	  
-							<input type="email" id="email" class="input-field" placeholder="Enter your email address" /> 			   
-					</div>
-					</form>    
-					<div class="blue-btn">
-						<a class="first-link" href=""> Get Started</a>
-					</div>
-				</div>
-			</div>
-			<hr style="height:1px;border-width:0;color:gray;background-color:darkgrey; width:95%;">
-			<div class="footer-copyright">
-				<p>© 2023 BookMart.lk. Designed by Group
-					31. All Rights Reserved.</p>
-			</div>
-	</footer>
-	
-
-
+	  <?php include 'footer.html'; ?>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
   <script src="js/jquery-3.4.1.min.js"></script>
 

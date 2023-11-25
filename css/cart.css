@@ -2,7 +2,91 @@ body{
 
    background-color: #e0b9b1;
 }
-.cart-page{
+/* General styling for the cart page container */
+.small-container {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* Styling for the cart table */
+.cart-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cart-page th, .cart-page td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.cart-page th {
+    color: #fff;
+    background-color: #ff523b;
+}
+
+/* Styling for the card-info container within the table */
+.cart-page .card-info {
+    display: flex;
+    align-items: center;
+}
+
+.cart-page img {
+    width: 80px;
+    margin-right: 10px;
+}
+
+.cart-page p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.cart-page small {
+    color: #666;
+}
+
+.cart-page a {
+    color: #e74c3c;
+    text-decoration: none;
+}
+
+.cart-page a:hover {
+    text-decoration: underline;
+}
+
+/* Styling for the quantity input */
+.cart-page input[type="number"] {
+    width: 40px;
+    padding: 6px;
+    text-align: center;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+    .cart-page th, .cart-page td {
+        font-size: 14px;
+    }
+
+    .cart-page img {
+        width: 60px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .cart-page{
     margin: 80px 150px;
 }
 table{
@@ -25,7 +109,7 @@ th{
     padding:10px 5px;
     color:#fff;
     font-weight: normal;
-    background: #ff523b;
+    background: ;
 }
 td{
     padding: 10px 5px;
@@ -39,5 +123,5 @@ td input{
 td a{
     color: #ff523b;
     font-size: 12px;
-}
+} */
 

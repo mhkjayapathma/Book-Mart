@@ -87,8 +87,9 @@ $conn->close();
   </head>
   <body style="padding-top: 70px">
   	<!-- <div class="container-fluid"> -->
-		<!---Nav-Bar--->
+		<!---Header--->
 		<?php include 'header.html'; ?>
+		
 		<!---Carousel--->
 		<div id="video-carousel-example" class="carousel slide carousel-fade" data-ride="carousel" >
 			<ol class="carousel-indicators">
@@ -146,7 +147,7 @@ $conn->close();
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
 					<?php
-						$imagePath = "images/Short Story/" . $book['bimage'];
+						$imagePath = "images/Fiction/" . $book['bimage'];
 						?>
 						<img src="<?php echo $imagePath; ?>">
 					
@@ -286,7 +287,7 @@ $conn->close();
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
 					<?php
-						$imagePath = "images/Fiction/" . $book['bimage'];
+						$imagePath = "" . $book['bimage'];
 						?>
 						<img src="<?php echo $imagePath; ?>">
 					

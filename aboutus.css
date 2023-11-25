@@ -1,0 +1,40 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    font-family: sans-serif;
+}
+body{
+    overflow-x: hidden;
+
+}
+.background{
+    min-height: 100vh;
+    background-image: url("images/bg1.jpg");
+    background-size: 1600px;
+    background-position: 50% 100%;
+    display: flex;
+    justify-content: center;
+    align-items:center ;
+}
+.background h1{
+    color: #f9fcfd;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.7); ;
+    font-size: 80px;
+
+}
+.about{
+    background-color:rgb(49, 1, 82) ;
+    color: white;
+    padding: 40px 120px;
+    font-size: 16px;
+    align-items: center;
+    text-align: justify;
+
+}
+.about h1{
+    padding: 40px 0px;
+    font-size: 30px;
+}
+.about p{
+    padding: 18px 0px;
+}

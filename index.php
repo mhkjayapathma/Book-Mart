@@ -146,10 +146,7 @@ $conn->close();
 		<?php foreach ($booksNewArrival as $book): ?>
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
-					<?php
-						$imagePath = "images/Fiction/" . $book['bimage'];
-						?>
-						<img src="<?php echo $imagePath; ?>">
+					<img src="<?php echo $book['bimage']; ?>">
 					
 					<div class="card-body">
 						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
@@ -171,10 +168,7 @@ $conn->close();
 		<?php foreach ($booksNovel as $book): ?>
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
-					<?php
-						$imagePath = "images/Novels/" . $book['bimage'];
-						?>
-						<img src="<?php echo $imagePath; ?>">
+				<img src="<?php echo $book['bimage']; ?>">
 					
 					<div class="card-body">
 						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
@@ -200,10 +194,7 @@ $conn->close();
 		<?php foreach ($booksShort as $book): ?>
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
-					<?php
-						$imagePath = "images/Short Story/" . $book['bimage'];
-						?>
-						<img src="<?php echo $imagePath; ?>">
+				<img src="<?php echo $book['bimage']; ?>">
 					
 					<div class="card-body">
 						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
@@ -229,10 +220,7 @@ $conn->close();
 		<?php foreach ($booksFantacy as $book): ?>
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
-					<?php
-						$imagePath = "images/Fantasy/" . $book['bimage'];
-						?>
-						<img src="<?php echo $imagePath; ?>">
+				<img src="<?php echo $book['bimage']; ?>">
 					
 					<div class="card-body">
 						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
@@ -258,10 +246,7 @@ $conn->close();
 			<?php foreach ($booksThriller as $book): ?>
 				<div class="col-md-2">
 					<div class="card  col-md-13"> 
-						<?php
-							$imagePath = "images/Thriller/" . $book['bimage'];
-							?>
-							<img src="<?php echo $imagePath; ?>">
+					<img src="<?php echo $book['bimage']; ?>">
 						
 						<div class="card-body">
 							<h5 class="card-title"><?php echo $book['bname']; ?></h5>
@@ -286,10 +271,7 @@ $conn->close();
 		<?php foreach ($booksFiction as $book): ?>
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
-					<?php
-						$imagePath = "" . $book['bimage'];
-						?>
-						<img src="<?php echo $imagePath; ?>">
+				<img src="<?php echo $book['bimage']; ?>">
 					
 					<div class="card-body">
 						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
@@ -327,7 +309,7 @@ $conn->close();
 			  		<div class="jumbotron">
 						<p class="lead centeralign">"I actually download several books a week... I would say I’ve saved approximately Rs.6000.00 or more each month using BookMart."</p>
 						<hr class="my-4">
-						<div class="centeralign">
+						<div class="centeralign" >
 							<img src="images/suzie.jpg" width="60" height="60" alt="" style="border-radius:50%;"/> 
 							<p class="lead_author">suzie.r</p>
 						</div>
@@ -335,7 +317,7 @@ $conn->close();
 				</div>
 	      		<div class="col-md-4"> 
 			  		<div class="jumbotron">
-		        		<p class="lead centeralign">"There are series I would have never discovered if it weren’t for BookMart, and I always feel like I got a deal, always."</p>
+		        		<p class="lead centeralign">"There are series I would have never discovered if it weren’t for BookMart, and I always feel like I got a deal, always."</p><br>
 	          			<hr class="my-4">
 						<div class="centeralign">
 							<img src="images/ellyn.jpg" width="60" height="60" alt="" style="border-radius:50%;"/>

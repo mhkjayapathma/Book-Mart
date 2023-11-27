@@ -56,14 +56,9 @@ h1{
 	color: #444;
 	
 }
-
-
 body{
     background-color: #EDEFFF;
 }
-
-
-
 .category_name{
 	color: #444;
     font-size: 25px;
@@ -75,22 +70,18 @@ body{
     color: #FFFFFF;
 	box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
-
-
 .col-md-2 .card.col-md-13 .card-img-top {
 	height:200px;
 }
 .btn {
-    width: 95px;
-    height: auto;
+    width:100%;
+    height:auto;
     font-size: small;
 	background-color: #35839A;
 	border-radius:10px;
-	
 }
 .card-footer{
-	padding: 0;
-	
+	width: 100%;
 }
 .card.col-md-13 .card-body .btn.btn-primary:hover{
 	background-color: #0E1519;

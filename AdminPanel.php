@@ -112,10 +112,11 @@ $conn->close();
         <div class="col-md-6">
             <div class="card bg-Dark text-light">
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
-                    <div class="card-header text-center">
+                    <div class="card-header text-center bg-info">
                         <h1>Add Books</h1>
                     </div>
                     <div class="body container">
+                        <br>
                         <div class="row">
                             <div class="col-md-3"> </div>
                             <div class="col-md-6">
@@ -169,17 +170,18 @@ $conn->close();
                                 </div>
                             </div>
                         </div>
+                        <br>
                     </div>
                     <div class="card-footer">
-                    <div class="row">
-                        <div class="col-md-10"></div>
-                        <div class="col-md-2" id='actionAdd'>
-                            <input type="submit" name="action" value="Add" class="btn btn-success">
+                        <div class="row">
+                            <div class="col-md-10"></div>
+                            <div class="col-md-2" id='actionAdd'>
+                                <input type="submit" name="action" value="Add" class="btn btn-success">
+                            </div>
+                            <div class="col-md-2" style="display:none" id='actionSave'>
+                                <input type="submit" name="action" value="Save" class="btn btn-primary">
+                            </div>
                         </div>
-                        <div class="col-md-2" style="display:none" id='actionSave'>
-                            <input type="submit" name="action" value="Save" class="btn btn-primary">
-                        </div>
-                    </div>
                     </div>
                 </form>
             </div>

@@ -1,4 +1,56 @@
+<?php
+@include 'configDatabase.php';
+// Function to sanitize user input
+function sanitizeInput($data)
+{
+    global $conn;  // Access the global connection variable
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $conn->real_escape_string($data);
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	
+		$inputEmail = $_POST['email'];  // Replace with the actual input from your form
+		$inputPassword = $_POST['password'];  // Replace with the actual input from your form
 
+		$query = "SELECT * FROM user WHERE email = ? LIMIT 1";
+		$stmt = $conn->prepare($query);
+		$stmt->bind_param("s", $inputEmail);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		
+		$User = [];
+		
+		if ($result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			// Verify the password
+			if ($inputPassword == $row['password']) {
+				// Passwords match, login successful
+				$User = $row;
+				$userType = $User['userType'];
+				echo $userType;
+				echo "<script>";
+				echo "localStorage.setItem('userType', '$userType' );";
+				echo "</script>";
+				header("Location: /Book-Mart/index.php");
+			} else {
+				// Passwords do not match, login failed
+				echo "<script>";
+				echo "alert('invalid password');";
+				echo "</script>";
+			}
+		} else {
+			// No matching user found, login failed
+			echo "Invalid E-mail.";
+		}
+	
+	
+}
+
+
+$conn->close();
+?>
 <html>
 <head>
   	<title>Login</title>
@@ -11,11 +63,11 @@
 		<div class="shape"></div>
 		<div class="shape"></div>
 	</div>
-	<form class="signform" method="post" action="">
+	<form class="signform" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 		<h3>Login Here</h3>
 		<input type="email" name="email" placeholder="Enter E-mail" required>   
 		<input type="Password" name="password" placeholder="Enter Password"  required >
-		<input type="Submit" name="Submit" class="submit">
+		<input type="submit" name="action" class="submit">
     </form>
 </body>
 </html>

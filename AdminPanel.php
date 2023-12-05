@@ -1,17 +1,5 @@
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "bookmart";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else {
-    echo "database connected successfully";
-}
+@include 'configDatabase.php';
 
     // Fetching New Arrival from the database
     $queryAllBook = "SELECT * FROM book ORDER BY bookID ASC";
@@ -44,18 +32,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $type = sanitizeInput($_POST["btype"]);
 
         $sql = "INSERT INTO book (bname, bauthor, bprice, btype) VALUES ('$name', '$author', '$price', '$type')";
-
+        
         if ($conn->query($sql) === TRUE) {
             // Fetching New Arrival from the database
-            $queryAllBook = "SELECT * FROM book ORDER BY bookID ASC";
-            $resultAllBook = $conn->query($queryAllBook);
+            // $queryAllBook = "SELECT * FROM book ORDER BY bookID ASC";
+            // $resultAllBook = $conn->query($queryAllBook);
 
-            $books = [];
-            if ($resultAllBook->num_rows > 0) {
-                while ($rowNewArrival = $resultAllBook->fetch_assoc()) {
-                    $books[] = $rowNewArrival;
-                }
-            }
+            // $books = [];
+            // if ($resultAllBook->num_rows > 0) {
+            //     while ($rowNewArrival = $resultAllBook->fetch_assoc()) {
+            //         $books[] = $rowNewArrival;
+            //     }
+            //     // Redirect to a relative URL
+                
+
+            // }
+            header("Location: /Book-Mart/AdminPanel.php");
         } else {
             echo '<script>';
             echo 'alert("Book inserted fail!");';
@@ -155,6 +147,7 @@ $conn->close();
                                                 <option value="S">Short story</option>
                                                 <option value="T">Thriller</option>
                                                 <option value="F">Fantasy</option>
+                                                <option value="F">Fiction</option>
                                             </select>
                                         </div>
                                     </div>
@@ -209,14 +202,17 @@ $conn->close();
                         
                         // Check if btype is 'N' and display 'Novel' accordingly
                         echo "<td>";
-                        if ($book['btype'] == 'N') {
+                        if ($book['btype'] == 'Novel') {
                             echo "Novel";
-                        } else if ($book['btype'] == 'S') {
+                        } else if ($book['btype'] == 'Story') {
                             echo "Short Story";
-                        } else if ($book['btype'] == 'T') {
+                        } else if ($book['btype'] == 'Thriller') {
                             echo "Thriller";
-                        } else if ($book['btype'] == 'F') {
+                        } else if ($book['btype'] == 'Fantasy') {
                             echo "Fantasy";
+                        }
+                        else if ($book['btype'] == 'Fiction') {
+                            echo "Fiction";
                         }
                         echo "</td>";
 

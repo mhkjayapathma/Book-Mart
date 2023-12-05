@@ -1,5 +1,7 @@
 <?php
+
 @include 'configDatabase.php';
+@include 'config.php';
 // Function to sanitize user input
 function sanitizeInput($data)
 {
@@ -29,11 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				// Passwords match, login successful
 				$User = $row;
 				$userType = $User['userType'];
-				echo $userType;
-				echo "<script>";
-				echo "localStorage.setItem('userType', '$userType' );";
-				echo "</script>";
-				header("Location: /Book-Mart/index.php");
+				$userID = $User['userID'];
+				$test = "test";
+				header("Location: /Book-Mart/index.php?userType=" . urlencode($userType) . "&userID=" . urlencode($userID));
 			} else {
 				// Passwords do not match, login failed
 				echo "<script>";

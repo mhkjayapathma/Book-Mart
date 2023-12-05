@@ -1,5 +1,7 @@
 <?php
 @include 'configDatabase.php';
+    $userType = isset($_POST['userType']) ? $_POST['userType'] : '';
+    $userID = isset($_POST['userID']) ? $_POST['userID'] : '';
 
     // Fetching New Arrival from the database
     $queryAllBook = "SELECT * FROM book ORDER BY bookID ASC";
@@ -34,21 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO book (bname, bauthor, bprice, btype) VALUES ('$name', '$author', '$price', '$type')";
         
         if ($conn->query($sql) === TRUE) {
-            // Fetching New Arrival from the database
-            // $queryAllBook = "SELECT * FROM book ORDER BY bookID ASC";
-            // $resultAllBook = $conn->query($queryAllBook);
-
-            // $books = [];
-            // if ($resultAllBook->num_rows > 0) {
-            //     while ($rowNewArrival = $resultAllBook->fetch_assoc()) {
-            //         $books[] = $rowNewArrival;
-            //     }
-            //     // Redirect to a relative URL
-                
-
-            // }
-            header("Location: /Book-Mart/AdminPanel.php");
-        } else {
+            header("Location: /Book-Mart/index.php?userType=" . urlencode($userType) . "&userID=" . urlencode($userID));
+         } else {
             echo '<script>';
             echo 'alert("Book inserted fail!");';
             echo '</script>';
@@ -96,13 +85,13 @@ $conn->close();
 </head>
 
 <body>
-    <?php include 'header.html'; ?>
+    <?php include 'header.php'; ?>
     <h2>Insert Book</h2>
     <br><br><br>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <div class="card bg-Dark text-light">
+            <div class="card bg-dark text-light">
                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data">
                     <div class="card-header text-center">
                         <h1>Add Books</h1>
@@ -112,6 +101,8 @@ $conn->close();
                             <div class="col-md-3"> </div>
                             <div class="col-md-6">
                                 <input type="hidden" name="bookID" id="bookID" value="">
+                                <input type="hidden" name="userType" id="" value="Admin">
+                                <input type="hidden" name="userID" id="bookID" value="3">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label for="title">Book Name:</label>

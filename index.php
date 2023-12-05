@@ -1,16 +1,5 @@
 <?php
-// Database connection
-		$server="localhost";
-        $user="root";
-        $pw="";
-        $db="bookmart";
-
-$conn = new mysqli($server, $user, $pw, $db);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
+@include 'configDatabase.php';
 // Fetching New Arival from the database
 $queryNewArrival = "SELECT * FROM book ORDER BY bookID DESC LIMIT 6;";
 $resultNewArrival = $conn->query($queryNewArrival);
@@ -88,7 +77,7 @@ $conn->close();
   <body style="padding-top: 70px">
   	<!-- <div class="container-fluid"> -->
 		<!---Header--->
-		<?php include 'header.html'; ?>
+		<?php include 'header.php'; ?>
 		
 		<!---Carousel--->
 		<div id="video-carousel-example" class="carousel slide carousel-fade" data-ride="carousel" >
@@ -331,7 +320,7 @@ $conn->close();
   	<!---Footer--->
 	  <?php include 'footer.html'; ?>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-  <script src="js/jquery-3.4.1.min.js"></script>
+ 	<script src="js/jquery-3.4.1.min.js"></script>
 
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/popper.min.js"></script> 

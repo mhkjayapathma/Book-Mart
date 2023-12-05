@@ -9,7 +9,7 @@
 </head>
 <body>
 	<!-- header -->
-	<?php include 'header.html'; ?>
+	<?php include 'header.php'; ?>
 	<br><br><br><br><br><br>
 	
   	<!--cart item details-->

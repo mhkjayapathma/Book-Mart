@@ -1,3 +1,9 @@
+<?php
+	session_start();
+	@include 'configDatabase.php';
+	
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -9,7 +15,7 @@
 </head>
 <body>
 	<!-- header -->
-	<?php include 'header.php'; ?>
+	<?php include 'header.html'; ?>
 	<br><br><br><br><br><br>
 	
   	<!--cart item details-->

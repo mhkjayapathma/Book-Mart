@@ -40,9 +40,9 @@
             <div class="col-md-3">
                 <h6 style="text-transform: uppercase">&ensp;Quick Links</h6>
                 <ul>
-                    <li><a href="index.php?userType=<?php echo $userType; ?>&userID=<?php echo $userID; ?>" >Home</a> </li>
-                    <li> <a href="cart.php?userType=<?php echo $userType; ?>&userID=<?php echo $userID; ?>">Cart</a> </li>	
-                    <li><a href="aboutus.php?userType=<?php echo $userType; ?>&userID=<?php echo $userID; ?>">About</a></li>
+                    <li><a href="index.php" >Home</a> </li>
+                    <li> <a href="cart.php">Cart</a> </li>	
+                    <li><a href="aboutus.php">About</a></li>
                     <li><a href="#">Contact us</a></li>  	
                 </ul>
             </div>

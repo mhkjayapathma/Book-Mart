@@ -1,7 +1,14 @@
 <?php
+session_start();
 
 @include 'configDatabase.php';
-@include 'config.php';
+
+function setUserDetails($userType, $userID){
+    global $userTypex, $userIDx;
+    $userTypex = $userType;
+    $userIDx = $userID;
+}
+
 // Function to sanitize user input
 function sanitizeInput($data)
 {
@@ -28,12 +35,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$row = $result->fetch_assoc();
 			// Verify the password
 			if ($inputPassword == $row['password']) {
-				// Passwords match, login successful
-				$User = $row;
-				$userType = $User['userType'];
-				$userID = $User['userID'];
-				$test = "test";
-				header("Location: /Book-Mart/index.php?userType=" . urlencode($userType) . "&userID=" . urlencode($userID));
+				
+				$_SESSION['user_id'] = $row['userID']; // You may use the actual user ID from your database
+				$_SESSION['user_type'] = $row['userType']; // You may use the actual user ID from your database
+
+				if (isset($_SESSION['user_id'])) {
+					header("Location: index.php");
+					exit();
+				}
+				
 			} else {
 				// Passwords do not match, login failed
 				echo "<script>";
@@ -42,7 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			}
 		} else {
 			// No matching user found, login failed
-			echo "Invalid E-mail.";
+			echo "<script>";
+			echo "alert('invalid E-mail');";
+			echo "</script>";
 		}
 	
 	

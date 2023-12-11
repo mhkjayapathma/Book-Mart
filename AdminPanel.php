@@ -1,9 +1,8 @@
 <?php
 @include 'configDatabase.php';
-    $userType = isset($_POST['userType']) ? $_POST['userType'] : '';
-    $userID = isset($_POST['userID']) ? $_POST['userID'] : '';
+    
 
-    // Fetching New Arrival from the database
+    // Fetching All books from the database
     $queryAllBook = "SELECT * FROM book ORDER BY bookID ASC";
     $resultAllBook = $conn->query($queryAllBook);
 
@@ -32,15 +31,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $author = sanitizeInput($_POST["bauthor"]);
         $price = sanitizeInput($_POST["bprice"]);
         $type = sanitizeInput($_POST["btype"]);
+        // Image file upload handling
+        $image_name = $_FILES['image']['name'];
+        $image_tmp_name = $_FILES['image']['tmp_name'];
+        $image_folder = 'images/'.$type.'/';
+        $image_path = $image_folder . $image_name;
 
-        $sql = "INSERT INTO book (bname, bauthor, bprice, btype) VALUES ('$name', '$author', '$price', '$type')";
-        
-        if ($conn->query($sql) === TRUE) {
-            header("Location: /Book-Mart/index.php?userType=" . urlencode($userType) . "&userID=" . urlencode($userID));
-         } else {
-            echo '<script>';
-            echo 'alert("Book inserted fail!");';
-            echo '</script>';
+        // Move the uploaded file to the destination folder
+        if (move_uploaded_file($image_tmp_name, $image_path)){ 
+            $sql = "INSERT INTO book (bname, bauthor, bprice, btype,bimage) VALUES ('$name', '$author', '$price', '$type','$image_path')";
+            if ($conn->query($sql) === TRUE) {
+                header("Location: /Book-Mart/index.php");
+            } else {
+                echo '<script>';
+                echo 'alert("Book inserted fail!");';
+                echo '</script>';
+            }
+        } else {
+            echo "Error uploading image file.";
         }
     } elseif (isset($_POST['action']) && $_POST['action'] == 'Save') {
         // Updating an existing book
@@ -49,11 +57,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $author = sanitizeInput($_POST["bauthor"]);
         $price = sanitizeInput($_POST["bprice"]);
         $type = sanitizeInput($_POST["btype"]);
+        $image_path= $_POST["bimage"];
 
-        $sql = "UPDATE book SET bname='$name', bauthor='$author', bprice='$price', btype='$type' WHERE bookID=$bookID";
+        $sql = "UPDATE book SET bname='$name', bauthor='$author', bprice='$price', btype='$type',bimage='$image_path' WHERE bookID=$bookID";
 
         if ($conn->query($sql) === TRUE) {
-            // Fetching New Arrival from the database
+            // Fetching Books from the database
             $queryAllBook = "SELECT * FROM book ORDER BY bookID ASC";
             $resultAllBook = $conn->query($queryAllBook);
 
@@ -70,7 +79,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-
+// Check if the 'delete' parameter is in the URL
+if(isset($_GET['delete'])){
+    $delete_id = $_GET['delete'];
+    $delete_query = mysqli_query($conn, "DELETE FROM book WHERE bookID = '$delete_id' ") or die('query failed');
+    if($delete_query){
+       header('location:admin.php');
+       $message[] = 'Product has been deleted';
+    }else{
+       header('location:admin.php');
+       $message[] = 'Product could not be deleted';
+    };
+ }
 $conn->close();
 ?>
 
@@ -100,6 +120,7 @@ $conn->close();
                         <div class="row">
                             <div class="col-md-3"> </div>
                             <div class="col-md-6">
+                                
                                 <input type="hidden" name="bookID" id="bookID" value="">
                                 <input type="hidden" name="userType" id="" value="Admin">
                                 <input type="hidden" name="userID" id="bookID" value="3">
@@ -134,11 +155,11 @@ $conn->close();
                                     <div class="col-md-6">
                                         <div class="dropdown">
                                             <select id="btype" name="btype" id="btype">
-                                                <option value="N">Novels</option>
-                                                <option value="S">Short story</option>
-                                                <option value="T">Thriller</option>
-                                                <option value="F">Fantasy</option>
-                                                <option value="F">Fiction</option>
+                                                <option value="Novels">Novels</option>
+                                                <option value="ShortStory">Short story</option>
+                                                <option value="Thriller">Thriller</option>
+                                                <option value="Fantasy">Fantasy</option>
+                                                <option value="Fiction">Fiction</option>
                                             </select>
                                         </div>
                                     </div>
@@ -148,9 +169,10 @@ $conn->close();
                                         <label for="bookImage">Book Image:</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="file" id="bookImage" name="bookImage" accept="image/*">
+                                        <input type="file" name="image" id="image" accept="image/png, image/jpg, image/jpeg" >
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -191,11 +213,11 @@ $conn->close();
                         echo "<td>" . $book['bookID'] . "</td>";
                         echo "<td>" . $book['bname'] . "</td>";
                         
-                        // Check if btype is 'N' and display 'Novel' accordingly
+                        // Check if btype is 'Novel' and display 'Novel' accordingly
                         echo "<td>";
-                        if ($book['btype'] == 'Novel') {
-                            echo "Novel";
-                        } else if ($book['btype'] == 'Story') {
+                        if ($book['btype'] == 'Novels') {
+                            echo "Novels";
+                        } else if ($book['btype'] == 'ShortStory') {
                             echo "Short Story";
                         } else if ($book['btype'] == 'Thriller') {
                             echo "Thriller";
@@ -208,8 +230,13 @@ $conn->close();
                         echo "</td>";
 
                         echo "<td>" . $book['bauthor'] . "</td>";
-                        echo "<td>" . $book['bprice'] . "</td>";
-                        echo "<td><button class='btn btn-warning' onclick='editBook(" . json_encode($book) . ")'>Edit</button></td>";
+                        echo "<td>" . $book['bprice'] . ".00/=</td>";
+                        echo "<td>
+                                <button class='btn btn-warning' onclick='editBook(" . json_encode($book) . ")'>Edit</button>
+                                <a class='btn btn-danger' onclick='return confirm('Are you sure you want to delete this?');' href='AdminPanel.php?delete=".$book['bookID']. "'>
+                                <i class='fas fa-trash'></i> Delete
+                                </a>
+                              </td>";
                         echo "</tr>";
                     }
                     ?>
@@ -227,6 +254,9 @@ $conn->close();
             document.getElementById('bauthor').value = book.bauthor;
             document.getElementById('bprice').value = book.bprice;
             document.getElementById('btype').value = book.btype;
+             // Update the image source
+            var imageElement = document.getElementById('image');
+            imageElement.src = book.bimage;
 
             var addBtn = document.getElementById('actionAdd');
             var saveBtn = document.getElementById('actionSave');

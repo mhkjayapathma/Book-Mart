@@ -1,5 +1,6 @@
 <?php
 @include 'configDatabase.php';
+
 // Fetching New Arival from the database
 $queryNewArrival = "SELECT * FROM book ORDER BY bookID DESC LIMIT 6;";
 $resultNewArrival = $conn->query($queryNewArrival);
@@ -318,7 +319,7 @@ $conn->close();
 	</div>
 
   	<!---Footer--->
-	  <?php include 'footer.html'; ?>
+	  <?php include 'footer.php'; ?>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
  	<script src="js/jquery-3.4.1.min.js"></script>
 

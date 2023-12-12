@@ -8,14 +8,10 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-
-
 // Check if the logout form was submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
-    
     session_destroy();
-    header("Location: login.php");
-    
+    header("Location: login.php");   
 }
 ?>
 
@@ -24,21 +20,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/headerFooter.css" rel="stylesheet" type="text/css">
+    <!-- <link href="css/headerFooter.css" rel="stylesheet" type="text/css"> -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
     <title>Header</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <!-- <div class="container-fluid"> -->
         <div class="container">
-            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light"> 
+            <nav class="navbar fixed-top navbar-expand-lg bg-dark text-light"> 
             <a class="navbar-brand" href="index.php"> <img src="images/BookMart_logo.png" alt="" width="120" height="48"  class="logo" ></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent1">
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item active"> <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a> </li>
+                <ul class="navbar-nav mr-auto ">
+                <li class="nav-item active"> <a class="nav-link text-light" href="index.php">Home <span class="sr-only">(current)</span></a> </li>
                 
-                <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories </a>
+                <li class="nav-item dropdown"> <a class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                         <a class="dropdown-item" href="novels.html">Novels</a> 
                         <a class="dropdown-item" href="shortstory.html">ShortStory</a>
@@ -47,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
                         <a class="dropdown-item" href="fiction.html">Fiction</a>
                     </div>
                 </li>
-                <li class="nav-item"> <a class="nav-link" href="aboutus.php">About&nbsp;</a> </li>
-                <li id="scrollButton" class="nav-item"> <a class="nav-link" style="cursor: pointer">Contact Us&nbsp;</a></li>
+                <li class="nav-item"> <a class="nav-link text-light" href="aboutus.php">About&nbsp;</a> </li>
+                <li id="scrollButton" class="nav-item "> <a class="nav-link text-light" href="#" style="cursor: pointer">Contact Us&nbsp;</a></li>
                 <script>
                         // script.js
                         document.addEventListener("DOMContentLoaded", function () {
@@ -60,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
                         });
                         });
                 </script> 
-                <li class="nav-item"> <a class="nav-link" href="cart.php">&nbsp;Cart</a></li>
+                <li class="nav-item"> <a class="nav-link text-light" href="cart.php">&nbsp;Cart</a></li>
                 <?php 
 
                 $isAdmin = false;
@@ -74,16 +70,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
                     </li>
                 <?php  } ?>
                 </ul>
-                <form method="post" class="search-form" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <input class="search-input" type="search" placeholder="Search" aria-label="Search">
-                <button class="search-btn" type="submit">Search</button>
-                <input type="submit" class="btn btn-danger" style="padding: 5px 10px; width: fit-content;" name="logoutForm" value="Logout">
+                <form method="post" class="form-inline my-2 my-lg-0" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="search-btn" type="submit">Search</button> -->
+                <h3><?php echo 'Welcome '.$_SESSION['user_name']." !"?>&nbsp;</h3>
+                <input type="submit" class="btn btn-danger"  name="logoutForm" value="Logout"/>
                 </form>
                 
             </div>
             </nav>
         </div>
-    </div>
+    <!-- </div> -->
 </body>
 </html>
 

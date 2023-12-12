@@ -46,14 +46,6 @@ body{
     color: #666;
 }
 
-.cart-page a {
-    color: #e74c3c;
-    text-decoration: none;
-}
-
-.cart-page a:hover {
-    text-decoration: underline;
-}
 
 /* Styling for the quantity input */
 .cart-page input[type="number"] {
@@ -72,56 +64,3 @@ body{
         width: 60px;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .cart-page{
-    margin: 80px 150px;
-}
-table{
-    width:100%;
-    border-collapse: collapse;
-    text-align: left;
-}
-
-.cart-info{
-    display: flex;
-    flex-wrap: wrap;
-}
-td img{
-    width:fit-content;
-    height: 80px;
-    margin-right: 10px;
-}
-th{
-    text-align:left;
-    padding:10px 5px;
-    color:#fff;
-    font-weight: normal;
-    background: ;
-}
-td{
-    padding: 10px 5px;
-}
-td input{
-    width:40px;
-    height: 30px;
-    padding: 5px;
-    border: none;
-}
-td a{
-    color: #ff523b;
-    font-size: 12px;
-} */
-

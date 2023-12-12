@@ -207,7 +207,7 @@ $conn->close();
                 </thead>
                 <tbody>
                     <?php
-                    // Assuming $books is an array of books fetched from the database
+                    //display all the books
                     foreach ($books as $book) {
                         echo "<tr>";
                         echo "<td>" . $book['bookID'] . "</td>";

@@ -62,6 +62,22 @@ if ($resultFiction->num_rows > 0) {
         $booksFiction[] = $rowFiction;
     }
 }
+//connecting cart table of database
+if(isset($_POST['add_to_cart'])){
+
+	
+	$product_quantity = 1;
+ 
+	$select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name'");
+ 
+	if(mysqli_num_rows($select_cart) > 0){
+	   $message[] = 'product already added to cart';
+	}else{
+	   $insert_product = mysqli_query($conn, "INSERT INTO `cart`(name, price, image, quantity) VALUES('$product_name', '$product_price', '$product_image', '$product_quantity')");
+	   $message[] = 'product added to cart succesfully';
+	}
+ 
+ }
 $conn->close();
 ?>
 
@@ -72,7 +88,7 @@ $conn->close();
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BookMart</title>
 	<link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-	<link href="css/indexStyle.css" rel="stylesheet" type="text/css">
+	<!-- <link href="css/indexStyle.css" rel="stylesheet" type="text/css"> -->
 	
   </head>
   <body style="padding-top: 70px">
@@ -129,6 +145,7 @@ $conn->close();
 	<br><br>
 
 	<!--- products categories--->
+	<form action="" method="post">
   	<div class="container" style="margin-top:70px;">
 		<h2 class="category_name">New Arrival</h2>
 	  	<hr class="hr-category">
@@ -143,7 +160,7 @@ $conn->close();
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 						<div class="card-footer">
-							<a href="#" class="btn btn-primary">Add To Cart</a>
+							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
 						</div>
 					</div>
            	 	</div>
@@ -165,7 +182,7 @@ $conn->close();
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 						<div class="card-footer">
-							<a href="#" class="btn btn-primary">Add To Cart</a>
+							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
 						</div>
 					</div>
            	 	</div>
@@ -191,7 +208,7 @@ $conn->close();
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 						<div class="card-footer">
-							<a href="#" class="btn btn-primary">Add To Cart</a>
+							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
 						</div>
 					</div>
            	 	</div>
@@ -217,7 +234,7 @@ $conn->close();
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 						<div class="card-footer">
-							<a href="#" class="btn btn-primary">Add To Cart</a>
+							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
 						</div>
 					</div>
            	 	</div>
@@ -243,7 +260,7 @@ $conn->close();
 							<p class="card-text"><?php echo $book['bauthor']; ?></p>
 							<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 							<div class="card-footer">
-								<a href="#" class="btn btn-primary">Add To Cart</a>
+								<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
 							</div>
 						</div>
 					</div>
@@ -251,7 +268,7 @@ $conn->close();
 			<?php endforeach; ?>
 		</div>
 		<div class="more-btn-class">
-	  	<a class="more-btn" href="thriller.html" > More </a>
+	  	<a class="more-btn" href="#" > More </a>
 	  	</div>
 		<br><br><br>
 
@@ -268,7 +285,7 @@ $conn->close();
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 						<div class="card-footer">
-							<a href="#" class="btn btn-primary">Add To Cart</a>
+							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
 						</div>
 					</div>
            	 	</div>
@@ -276,9 +293,10 @@ $conn->close();
 		<?php endforeach; ?>
 		</div>
 		<div class="more-btn-class">
-	  		<a class="more-btn" href="fiction.html" > More </a>
+	  		<a class="more-btn" href="#" > More </a>
 	  	</div>
 	</div>
+	</form>
 	<br><br><br>
 
 	<!---Jumbotron--->

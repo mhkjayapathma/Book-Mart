@@ -36,14 +36,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			// Verify the password
 			if ($inputPassword == $row['password']) {
 				
-				$_SESSION['user_id'] = $row['userID']; // You may use the actual user ID from your database
-				$_SESSION['user_type'] = $row['userType']; // You may use the actual user ID from your database
+				$_SESSION['user_id'] = $row['userID']; 
+				$_SESSION['user_type'] = $row['userType']; 
+				$_SESSION['user_name'] = $row['uname'];
 
 				if (isset($_SESSION['user_id'])) {
 					header("Location: index.php");
 					exit();
 				}
-				
 			} else {
 				// Passwords do not match, login failed
 				echo "<script>";

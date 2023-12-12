@@ -1,7 +1,8 @@
 <?php
-	session_start();
+	@include 'header.php';
 	@include 'configDatabase.php';
 	//assign userID to variable
+
 	$userID = $_SESSION['user_id'];
 	
 	// Fetching All books from the database
@@ -19,6 +20,16 @@
             $books[] = $rowBooks;
         }
     }
+
+	//remove book from cart
+	if(isset($_POST['remove'])){
+		$cartID = $_POST["cartID"];
+			
+		$remove_sql= "DELETE FROM `cart` WHERE cartID=$cartID";
+		if ($conn->query($remove_sql) === TRUE) {
+			header("Location: /Book-Mart/cart.php");
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +43,7 @@
 	</head>
 	<body>
 		<!-- header -->
-		<?php include 'header.php'; ?>
+		
 		<br><br><br><br><br><br>
 		
 		<!--cart item details-->
@@ -64,8 +75,14 @@
 						</td>
 						<td><input type="text" id="<?php echo 'Total'.$book['bookID']; ?>" value="<?php echo 'Rs'.$book['bprice'].'.00/='; ?>" style="width:100px;border:none;" disabled/></td>
 						<td>
-							<button style="width:90px;height:40px"class="btn btn-success"><i class="fas fa-trash">Buy Now</button><br><br>
-							<button style="width:90px;height:40px"class="btn btn-danger"><i class="fas fa-trash">Remove</button>
+							<form action="" method="POST">
+								<button style="width:90px;height:40px"class="btn btn-success"><i class="fas fa-trash">Buy Now</button><br><br>
+								<div>
+									<input type="hidden" name="cartID" value="<?php echo $book['cartID']; ?>">
+									<input type="submit" style="width:90px;height:40px" class="btn btn-danger " value="Remove" name="remove">
+									<!-- <button class="btn btn-danger"><i class="fas fa-trash">Remove</button> -->
+								</div>
+							</form>
 						</td>
 					</tr>
 					<?php endforeach; ?>
@@ -87,7 +104,7 @@
 
         // Display calculated total
         
-		document.getElementById('Total'+bookid).value = total;
+		document.getElementById('Total'+bookid).value = "Rs: " +total+".00/=";
     }
 	</script>
 

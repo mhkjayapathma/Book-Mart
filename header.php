@@ -1,11 +1,25 @@
 <?php
 @include 'configDatabase.php';
-    session_start();
-    
+session_start();
+$userID= $_SESSION['user_id'];
 // Check if the user is not logged in, redirect to the login page
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
+}else{
+    // Using prepared statement to prevent SQL injection
+    $queryBookCount = "SELECT count(cart.cartID) AS cartCount
+    FROM book
+    JOIN cart ON book.bookID = cart.bookID
+    WHERE cart.userID = ?";
+
+    $stmt = $conn->prepare($queryBookCount);
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $stmt->bind_result($cartCount);
+    $stmt->fetch();
+    $stmt->close();
+
 }
 
 // Check if the logout form was submitted
@@ -13,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
     session_destroy();
     header("Location: login.php");   
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
                         });
                         });
                 </script> 
-                <li class="nav-item"> <a class="nav-link text-light" href="cart.php">&nbsp;Cart</a></li>
+                <li class="nav-item"> <a class="nav-link text-light" href="cart.php">&nbsp;Cart&nbsp;<i style="display: inline-block; width: 30px; height: 30px; background-color: red; border-radius: 50%; text-align: center; line-height: 30px; color: white;">
+    <?php echo $cartCount ?>
+</i>
+ </a></li>
                 <?php 
 
                 $isAdmin = false;
@@ -66,14 +84,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
                 if ($isAdmin) {
                 ?>
                     <li class="nav-item" id="adminPanelLink"> 
-                        <a class="nav-link" href="AdminPanel.php">&nbsp;Admin Panel</a>
+                        <a class="nav-link text-light" href="AdminPanel.php">&nbsp;Admin Panel</a>
                     </li>
                 <?php  } ?>
                 </ul>
                 <form method="post" class="form-inline my-2 my-lg-0" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="search-btn" type="submit">Search</button> -->
-                <h3><?php echo 'Welcome '.$_SESSION['user_name']." !"?>&nbsp;</h3>
+                <h5 class="text-light">Welcome&nbsp;</h5><h5 class="text-info"><?php echo $_SESSION['user_name']?>&nbsp;&nbsp;&nbsp;</h5>
                 <input type="submit" class="btn btn-danger"  name="logoutForm" value="Logout"/>
                 </form>
                 
@@ -83,4 +101,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
     <!-- </div> -->
 </body>
 </html>
-

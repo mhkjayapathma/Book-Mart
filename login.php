@@ -1,14 +1,6 @@
 <?php
-session_start();
-
 @include 'configDatabase.php';
-
-function setUserDetails($userType, $userID){
-    global $userTypex, $userIDx;
-    $userTypex = $userType;
-    $userIDx = $userID;
-}
-
+session_start();
 // Function to sanitize user input
 function sanitizeInput($data)
 {
@@ -18,44 +10,59 @@ function sanitizeInput($data)
     $data = htmlspecialchars($data);
     return $conn->real_escape_string($data);
 }
+
+function checkCartCount() {
+	
+    
+    // Display the count using JavaScript alert
+  
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
-		$inputEmail = $_POST['email'];  // Replace with the actual input from your form
-		$inputPassword = $_POST['password'];  // Replace with the actual input from your form
-
-		$query = "SELECT * FROM user WHERE email = ? LIMIT 1";
-		$stmt = $conn->prepare($query);
-		$stmt->bind_param("s", $inputEmail);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		
-		$User = [];
-		
-		if ($result->num_rows > 0) {
-			$row = $result->fetch_assoc();
-			// Verify the password
-			if ($inputPassword == $row['password']) {
-				
-				$_SESSION['user_id'] = $row['userID']; 
-				$_SESSION['user_type'] = $row['userType']; 
-				$_SESSION['user_name'] = $row['uname'];
-
-				if (isset($_SESSION['user_id'])) {
-					header("Location: index.php");
-					exit();
-				}
-			} else {
-				// Passwords do not match, login failed
-				echo "<script>";
-				echo "alert('invalid password');";
-				echo "</script>";
+	$inputEmail = $_POST['email'];  // Replace with the actual input from your form
+	$inputPassword = $_POST['password'];  // Replace with the actual input from your form
+	
+	$query = "SELECT * FROM user WHERE email = ? LIMIT 1";
+	$stmt = $conn->prepare($query);
+	$stmt->bind_param("s", $inputEmail);
+	$stmt->execute();
+	$result = $stmt->get_result();
+	
+	if ($result->num_rows > 0) {
+		$row = $result->fetch_assoc();
+		// Verify the password
+		if (password_verify($inputPassword, $row['password'])) {
+			// Passwords match
+			$_SESSION['user_id'] = $row['userID']; 
+			$_SESSION['user_type'] = $row['userType']; 
+			$_SESSION['user_name'] = $row['uname'];
+	
+			if (isset($_SESSION['user_id'])) {
+				// Assuming you have already started the session
+				$userID = $_SESSION['user_id'];
+	
+				header("Location: index.php");
+				exit();
 			}
 		} else {
-			// No matching user found, login failed
-			echo "<script>";
-			echo "alert('invalid E-mail');";
-			echo "</script>";
+
+			echo "Input Password: $inputPassword<br>";
+			echo "Stored Hashed Password: {$row['password']}<br>";
+
+			// Passwords do not match, login failed
+			// echo "<script>";
+			// echo "alert('Invalid Password!');";
+			// echo "</script>";
 		}
+	} else {
+		// No matching user found, login failed
+		echo "<script>";
+		echo "alert('Invalid E-mail!');";
+		echo "</script>";
+	}
+	
 	
 	
 }
@@ -79,7 +86,12 @@ $conn->close();
 		<h3>Login Here</h3>
 		<input type="email" name="email" placeholder="Enter E-mail" required>   
 		<input type="Password" name="password" placeholder="Enter Password"  required >
-		<input type="submit" name="action" class="submit">
+		<div class="text-center">
+			<input type="submit" name="action" class="submit bg-primary">
+			<br><br>
+			<a href="signup.php">sign up</a>
+		</div>
     </form>
+	
 </body>
 </html>

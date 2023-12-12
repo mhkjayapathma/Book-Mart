@@ -24,6 +24,6 @@
     <!-- <script src="js/aboutus.js"></script> -->
 
     <!-- footer -->
-    <?php include 'footer.html'; ?>
+    <?php include 'footer.php'; ?>
 </body>
 </html>

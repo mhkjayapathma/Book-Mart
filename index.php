@@ -1,6 +1,23 @@
 <?php
 @include 'configDatabase.php';
+@include 'header.php';
+ $userID = $_SESSION['user_id'];
 
+ // Fetching All books from the database
+ $queryCart = "SELECT *
+ FROM book
+ JOIN cart ON book.bookID = cart.bookID
+ WHERE cart.userID = $userID  
+ ORDER BY cart.cartID DESC;";
+
+ $resultcart = $conn->query($queryCart);
+
+ $cart = [];
+ if ($resultcart->num_rows > 0) {
+	 while ($rowcart = $resultcart->fetch_assoc()) {
+		 $cart[] = $rowcart;
+	 }
+ }
 // Fetching New Arival from the database
 $queryNewArrival = "SELECT * FROM book ORDER BY bookID DESC LIMIT 6;";
 $resultNewArrival = $conn->query($queryNewArrival);
@@ -13,7 +30,7 @@ if ($resultNewArrival->num_rows > 0) {
 }
 
 // Fetching Novel from the database
-$queryNovel = "SELECT * FROM book 	WHERE btype='Novel' ORDER BY bookID DESC LIMIT 6;";
+$queryNovel = "SELECT * FROM book 	WHERE btype='Novels' ORDER BY bookID DESC LIMIT 6;";
 $resultNovel = $conn->query($queryNovel);
 
 $booksNovel = [];
@@ -23,7 +40,7 @@ if ($resultNovel->num_rows > 0) {
     }
 }
 // Fetching Short story from the database
-$queryShort = "SELECT * FROM book WHERE btype='Short' ORDER BY bookID DESC LIMIT 6;";
+$queryShort = "SELECT * FROM book WHERE btype='ShortStory' ORDER BY bookID DESC LIMIT 6;";
 $resultShort = $conn->query($queryShort);
 
 $booksShort = [];
@@ -63,19 +80,28 @@ if ($resultFiction->num_rows > 0) {
     }
 }
 //connecting cart table of database
-if(isset($_POST['add_to_cart'])){
 
+// function test(){
+// 	echo '<script>';
+// 	echo 'alert("test");';
+// 	echo '</script>';
+// }
+if(isset($_POST['add_to_cart'])){
+	$bookID = $_POST["bookID"];
 	
-	$product_quantity = 1;
- 
-	$select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE name = '$product_name'");
- 
-	if(mysqli_num_rows($select_cart) > 0){
-	   $message[] = 'product already added to cart';
-	}else{
-	   $insert_product = mysqli_query($conn, "INSERT INTO `cart`(name, price, image, quantity) VALUES('$product_name', '$product_price', '$product_image', '$product_quantity')");
-	   $message[] = 'product added to cart succesfully';
-	}
+	   $insert_cart_sql = "INSERT INTO `cart`(bookID, userID) VALUES($bookID, $userID)";
+	   if ($conn->query($insert_cart_sql) === TRUE) {
+		echo '<script>';
+		echo 'alert("add to cart success!");';
+		echo '</script>';
+		header("Location: /Book-Mart/cart.php");
+	   }
+	   else{
+		echo '<script>';
+		echo 'alert("add to cart fail!");';
+		echo '</script>';
+	   }
+	
  
  }
 $conn->close();
@@ -88,14 +114,11 @@ $conn->close();
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BookMart</title>
 	<link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-	<!-- <link href="css/indexStyle.css" rel="stylesheet" type="text/css"> -->
+	<link href="css/indexStyle.css" rel="stylesheet" type="text/css">
 	
   </head>
   <body style="padding-top: 70px">
-  	<!-- <div class="container-fluid"> -->
-		<!---Header--->
-		<?php include 'header.php'; ?>
-		
+  	
 		<!---Carousel--->
 		<div id="video-carousel-example" class="carousel slide carousel-fade" data-ride="carousel" >
 			<ol class="carousel-indicators">
@@ -145,27 +168,42 @@ $conn->close();
 	<br><br>
 
 	<!--- products categories--->
-	<form action="" method="post">
+	
   	<div class="container" style="margin-top:70px;">
 		<h2 class="category_name">New Arrival</h2>
 	  	<hr class="hr-category">
 	    <div class="row">
 		<?php foreach ($booksNewArrival as $book): ?>
-			<div class="col-md-2">
-			  	<div class="card  col-md-13"> 
-					<img src="<?php echo $book['bimage']; ?>">
-					
-					<div class="card-body">
-						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
-						<p class="card-text"><?php echo $book['bauthor']; ?></p>
-						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
-						<div class="card-footer">
-							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-						</div>
-					</div>
-           	 	</div>
-			</div>
+		<?php $isInCart = false; ?>
+		<?php foreach ($cart as $cartItem): ?>
+			<?php if ($book['bookID'] == $cartItem['bookID']): ?>
+				<?php $isInCart = true; ?>
+				<?php break; ?>
+			<?php endif; ?>
 		<?php endforeach; ?>
+
+		<div class="col-md-2">
+			<div class="card col-md-13"> 
+				<img src="<?php echo $book['bimage']; ?>">
+				
+				<div class="card-body">
+					<h5 class="card-title"><?php echo $book['bname']; ?></h5>
+					<p class="card-text"><?php echo $book['bauthor']; ?></p>
+					<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
+					<div class="card-footer">
+						<?php if (!$isInCart): ?>
+							<form action="" method="POST">
+								<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
+								<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
+							</form>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php endforeach; ?>
+
+
 		</div>	  
       	<br><br><br>
 
@@ -173,21 +211,34 @@ $conn->close();
 	  	<hr class="hr-category">
 	    <div class="row">
 		<?php foreach ($booksNovel as $book): ?>
-			<div class="col-md-2">
-			  	<div class="card  col-md-13"> 
-				<img src="<?php echo $book['bimage']; ?>">
-					
-					<div class="card-body">
-						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
-						<p class="card-text"><?php echo $book['bauthor']; ?></p>
-						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
-						<div class="card-footer">
-							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-						</div>
-					</div>
-           	 	</div>
-			</div>
+		<?php $isInCart = false; ?>
+		<?php foreach ($cart as $cartItem): ?>
+			<?php if ($book['bookID'] == $cartItem['bookID']): ?>
+				<?php $isInCart = true; ?>
+				<?php break; ?>
+			<?php endif; ?>
 		<?php endforeach; ?>
+
+		<div class="col-md-2">
+			<div class="card col-md-13"> 
+				<img src="<?php echo $book['bimage']; ?>">
+				
+				<div class="card-body">
+					<h5 class="card-title"><?php echo $book['bname']; ?></h5>
+					<p class="card-text"><?php echo $book['bauthor']; ?></p>
+					<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
+					<div class="card-footer">
+						<?php if (!$isInCart): ?>
+							<form action="" method="POST">
+								<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
+								<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
+							</form>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php endforeach; ?>
 		</div>	  
 	    <div class="more-btn-class">
 	  	<a class="more-btn" href="novels.html" > More </a>
@@ -208,8 +259,11 @@ $conn->close();
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 						<div class="card-footer">
+						<form action="" method="POST">
+							<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
 							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-						</div>
+						</form>
+					</div>
 					</div>
            	 	</div>
 			</div>
@@ -234,8 +288,11 @@ $conn->close();
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 						<div class="card-footer">
+						<form action="" method="POST">
+							<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
 							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-						</div>
+						</form>
+					</div>
 					</div>
            	 	</div>
 			</div>
@@ -260,8 +317,11 @@ $conn->close();
 							<p class="card-text"><?php echo $book['bauthor']; ?></p>
 							<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 							<div class="card-footer">
-								<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-							</div>
+							<form action="" method="POST">
+							<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
+							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
+						</form>
+					</div>
 						</div>
 					</div>
 				</div>
@@ -285,8 +345,11 @@ $conn->close();
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
 						<div class="card-footer">
+						<form action="" method="POST">
+							<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
 							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-						</div>
+						</form>
+					</div>
 					</div>
            	 	</div>
 			</div>
@@ -296,7 +359,6 @@ $conn->close();
 	  		<a class="more-btn" href="#" > More </a>
 	  	</div>
 	</div>
-	</form>
 	<br><br><br>
 
 	<!---Jumbotron--->

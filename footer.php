@@ -26,38 +26,33 @@
         </div>
     
         <hr style="height:1px;border-width:0;color:gray;background-color:darkgrey; width:95%;">
-        <div class="row" >
-            <div class="col-md-3 left-padding">
-                <h6 style="text-transform: uppercase">&ensp;Categories</h6>
-                <ul>
-                    <li><a href="novels.html" >&ensp;Novels</a> </li>
-                    <li><a href="shortstory.html">&ensp;ShortStory</a></li>
-                    <li><a href="fantacy.html">&ensp;Fantasy</a></li>
-                    <li> <a href="thriller.html">&ensp;Thriller</a> </li>
-                    <li><a href="fiction.html">&ensp;Fiction</a></li>			
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h6 style="text-transform: uppercase">&ensp;Quick Links</h6>
-                <ul>
-                    <li><a href="index.php" >Home</a> </li>
-                    <li> <a href="cart.php">Cart</a> </li>	
-                    <li><a href="aboutus.php">About</a></li>
-                    <li><a href="#">Contact us</a></li>  	
-                </ul>
-            </div>
-            <div class="col-md-3"> 
+        <div class="row text-center" >
+            <div class="col-md-4">
+                <h6 style="text-transform: uppercase" class="bg-light text-dark">&ensp;Categories</h6>
                 <dl>
-                <h6 >CONTACT US</h6>
+                    <dd><a href="novels.html" >&ensp;Novels</a> </dd>
+                    <dd><a href="shortstory.html">&ensp;ShortStory</a></dd>
+                    <dd><a href="fantacy.html">&ensp;Fantasy</a></dd>
+                    <dd> <a href="thriller.html">&ensp;Thriller</a> </dd>
+                    <dd><a href="fiction.html">&ensp;Fiction</a></dd>			
+                </dl>
+            </div>
+            <div class="col-md-4">
+                <h6 style="text-transform: uppercase" class="bg-light text-dark">&ensp;Quick Links</h6>
+                <dl>
+                    <dd><a href="index.php" >Home</a> </dd>
+                    <dd> <a href="cart.php">Cart</a> </dd>	
+                    <dd><a href="aboutus.php">About</a></dd>
+                    <dd><a href="#">Contact us</a></dd>  	
+                </dl>
+            </div>
+            <div class="col-md-4"> 
+                <dl>
+                <h6 class="bg-light text-dark">CONTACT US</h6>
                     <dd>&ensp;No.21, Stanly road, Nugegoda.</dd>
                     <dd>&ensp;+94 112 456 456</dd>
                     <dd>&ensp;bookmart@gmail.com</dd>
                 </dl>
-            </div>
-            <div class="col-md-3">
-                <h6>FeedBack</h6>
-                
-                
             </div>
         </div>
         <hr style="height:1px;border-width:0;color:gray;background-color:darkgrey; width:95%;">

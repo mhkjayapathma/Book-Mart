@@ -1,9 +1,9 @@
 <?php
+@include 'header.php';
 @include 'configDatabase.php';
-    
 
     // Fetching All books from the database
-    $queryAllBook = "SELECT * FROM book ORDER BY bookID ASC";
+    $queryAllBook = "SELECT * FROM book ORDER BY bookID DESC";
     $resultAllBook = $conn->query($queryAllBook);
 
     $books = [];
@@ -31,25 +31,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $author = sanitizeInput($_POST["bauthor"]);
         $price = sanitizeInput($_POST["bprice"]);
         $type = sanitizeInput($_POST["btype"]);
+
         // Image file upload handling
         $image_name = $_FILES['image']['name'];
         $image_tmp_name = $_FILES['image']['tmp_name'];
-        $image_folder = 'images/'.$type.'/';
-        $image_path = $image_folder . $image_name;
+        $image_folder = 'images/' . $type . '/';
+
+        // Generate a unique filename with datetime prefix
+        $datetime_prefix = date('YmdHis');
+        $image_extension = pathinfo($image_name, PATHINFO_EXTENSION);
+        $new_image_name = $datetime_prefix . '.' . $image_extension;
+        $image_path = $image_folder . $new_image_name;
 
         // Move the uploaded file to the destination folder
-        if (move_uploaded_file($image_tmp_name, $image_path)){ 
-            $sql = "INSERT INTO book (bname, bauthor, bprice, btype,bimage) VALUES ('$name', '$author', '$price', '$type','$image_path')";
+        if (move_uploaded_file($image_tmp_name, $image_path)) {
+            $sql = "INSERT INTO book (bname, bauthor, bprice, btype, bimage) VALUES ('$name', '$author', '$price', '$type', '$image_path')";
             if ($conn->query($sql) === TRUE) {
                 header("Location: /Book-Mart/index.php");
             } else {
                 echo '<script>';
-                echo 'alert("Book inserted fail!");';
+                echo 'alert("Book insertion failed!");';
                 echo '</script>';
             }
         } else {
-            echo "Error uploading image file.";
+            echo '<script>';
+            echo 'alert("File upload failed!");';
+            echo '</script>';
         }
+
     } elseif (isset($_POST['action']) && $_POST['action'] == 'Save') {
         // Updating an existing book
         $bookID = sanitizeInput($_POST["bookID"]);
@@ -57,26 +66,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $author = sanitizeInput($_POST["bauthor"]);
         $price = sanitizeInput($_POST["bprice"]);
         $type = sanitizeInput($_POST["btype"]);
-        $image_path= $_POST["bimage"];
+        $imageURL = sanitizeInput($_POST["imageURL"]);
+        
+        $image_name = $_FILES['image']['name'];
+        $image_tmp_name = $_FILES['image']['tmp_name'];
+        $image_folder = 'images/' . $type . '/';
 
-        $sql = "UPDATE book SET bname='$name', bauthor='$author', bprice='$price', btype='$type',bimage='$image_path' WHERE bookID=$bookID";
+        $datetime_prefix = date('YmdHis');
+        $image_extension = pathinfo($image_name, PATHINFO_EXTENSION);
+        $new_image_name = $datetime_prefix . '.' . $image_extension;
+        $image_path = $image_folder . $new_image_name;
+       
+        if($image_name == ''){
+            $image_path = $imageURL;
 
-        if ($conn->query($sql) === TRUE) {
-            // Fetching Books from the database
-            $queryAllBook = "SELECT * FROM book ORDER BY bookID ASC";
-            $resultAllBook = $conn->query($queryAllBook);
-
-            $books = [];
-            if ($resultAllBook->num_rows > 0) {
-                while ($rowNewArrival = $resultAllBook->fetch_assoc()) {
-                    $books[] = $rowNewArrival;
+            $sql = "UPDATE book SET bname='$name', bauthor='$author', bprice='$price', btype='$type',bimage='$image_path' WHERE bookID=$bookID";
+                if ($conn->query($sql) === TRUE) {
+                    // Fetching Books from the database
+                    $queryAllBook = "SELECT * FROM book ORDER BY bookID DESC";
+                    $resultAllBook = $conn->query($queryAllBook);
+    
+                    $books = [];
+                    if ($resultAllBook->num_rows > 0) {
+                        while ($rowNewArrival = $resultAllBook->fetch_assoc()) {
+                            $books[] = $rowNewArrival;
+                        }
+                    }
+                } else {
+                    echo '<script>';
+                    echo 'alert("Book updated fail!");';
+                    echo '</script>';
+                }
+        }
+        else{
+            if (move_uploaded_file($image_tmp_name, $image_path)){ 
+                $sql = "UPDATE book SET bname='$name', bauthor='$author', bprice='$price', btype='$type',bimage='$image_path' WHERE bookID=$bookID";
+                if ($conn->query($sql) === TRUE) {
+                    // Fetching Books from the database
+                    $queryAllBook = "SELECT * FROM book ORDER BY bookID DESC";
+                    $resultAllBook = $conn->query($queryAllBook);
+    
+                    $books = [];
+                    if ($resultAllBook->num_rows > 0) {
+                        while ($rowNewArrival = $resultAllBook->fetch_assoc()) {
+                            $books[] = $rowNewArrival;
+                        }
+                    }
+                } else {
+                    echo '<script>';
+                    echo 'alert("Book updated fail!");';
+                    echo '</script>';
                 }
             }
-        } else {
-            echo '<script>';
-            echo 'alert("Book updated fail!");';
-            echo '</script>';
         }
+        
+        
+        
     }
 }
 // Check if the 'delete' parameter is in the URL
@@ -84,7 +129,7 @@ if(isset($_GET['delete'])){
     $delete_id = $_GET['delete'];
     $delete_query = mysqli_query($conn, "DELETE FROM book WHERE bookID = '$delete_id' ") or die('query failed');
     if($delete_query){
-       header('location:admin.php');
+       header('location:AdminPanel.php');
        $message[] = 'Product has been deleted';
     }else{
        header('location:admin.php');
@@ -105,7 +150,6 @@ $conn->close();
 </head>
 
 <body>
-    <?php include 'header.php'; ?>
     <h2>Insert Book</h2>
     <br><br><br>
     <div class="row">
@@ -169,7 +213,11 @@ $conn->close();
                                         <label for="bookImage">Book Image:</label>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="file" name="image" id="image" accept="image/png, image/jpg, image/jpeg" >
+                                    <div class="text-center image-container">
+                                    <img src="" id="imageview" class="img-thumbnail" alt="...">
+                                    </div>
+                                        <input type="hidden" id="imageURL" name="imageURL"/>
+                                        <input type="file" name="image" id="image" accept="image/png, image/jpg, image/jpeg" onchange="previewImage(this)">
                                     </div>
                                 </div>
                                 
@@ -244,6 +292,7 @@ $conn->close();
             </table>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>
         function editBook(book) {
@@ -255,8 +304,10 @@ $conn->close();
             document.getElementById('bprice').value = book.bprice;
             document.getElementById('btype').value = book.btype;
              // Update the image source
-            var imageElement = document.getElementById('image');
+            var imageElement = document.getElementById('imageview');
             imageElement.src = book.bimage;
+
+            document.getElementById('imageURL').value = book.bimage;
 
             var addBtn = document.getElementById('actionAdd');
             var saveBtn = document.getElementById('actionSave');
@@ -264,6 +315,23 @@ $conn->close();
             addBtn.style.display = 'none';
             saveBtn.style.display = 'block';
         }
+
+        function previewImage(input) {
+
+            
+        var imageContainer = $(".image-container img")[0];
+        var fileInput = input.files[0];
+       
+        if (fileInput) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imageContainer.src = e.target.result;
+            };
+
+            reader.readAsDataURL(fileInput);
+        }
+    }
     </script>
 </body>
 

@@ -1,4 +1,4 @@
-@charset "utf-8";
+ @charset "utf-8";
 .heading1 {
 	font-family: Playfair Display,"Playfair Display-fallback",Lora,"Lora-fallback",Georgia,serif;
     font-weight: 800;
@@ -22,7 +22,7 @@
     font-size: 14px;
     line-height: 1.5em;
 }
-.centeralign{
+ .centeralign{
 	text-align: center;	
 }
 .carousel-caption{
@@ -56,14 +56,9 @@ h1{
 	color: #444;
 	
 }
-
-
 body{
     background-color: #EDEFFF;
 }
-
-
-
 .category_name{
 	color: #444;
     font-size: 25px;
@@ -75,22 +70,18 @@ body{
     color: #FFFFFF;
 	box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
-
-
 .col-md-2 .card.col-md-13 .card-img-top {
 	height:200px;
 }
-.btn {
-    width: 95px;
-    height: auto;
+/* .btn {
+    width:100%;
+    height:auto;
     font-size: small;
 	background-color: #35839A;
 	border-radius:10px;
-	
-}
+} */
 .card-footer{
-	padding: 0;
-	
+	width: 100%;
 }
 .card.col-md-13 .card-body .btn.btn-primary:hover{
 	background-color: #0E1519;
@@ -143,8 +134,4 @@ body{
 	transform: scale(0.5,0.5);
 	color:#fff;
 	text-decoration: none;
-}
-
-.btn-footer{
-	
-}
+} 

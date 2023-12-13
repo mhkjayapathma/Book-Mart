@@ -2,42 +2,65 @@ body{
 
    background-color: #e0b9b1;
 }
-.cart-page{
-    margin: 80px 150px;
+/* General styling for the cart page container */
+.small-container {
+    max-width: 800px;
+    margin: 20px auto;
 }
-table{
-    width:100%;
+
+/* Styling for the cart table */
+.cart-page table {
+    width: 100%;
     border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.cart-page th, .cart-page td {
+    border: 1px solid #ddd;
+    padding: 8px;
     text-align: left;
 }
 
-.cart-info{
-    display: flex;
-    flex-wrap: wrap;
-}
-td img{
-    width:fit-content;
-    height: 80px;
-    margin-right: 10px;
-}
-th{
-    text-align:left;
-    padding:10px 5px;
-    color:#fff;
-    font-weight: normal;
-    background: #ff523b;
-}
-td{
-    padding: 10px 5px;
-}
-td input{
-    width:40px;
-    height: 30px;
-    padding: 5px;
-    border: none;
-}
-td a{
-    color: #ff523b;
-    font-size: 12px;
+.cart-page th {
+    color: #fff;
+    background-color: #ff523b;
 }
 
+/* Styling for the card-info container within the table */
+.cart-page .card-info {
+    display: flex;
+    align-items: center;
+}
+
+.cart-page img {
+    width: 80px;
+    margin-right: 10px;
+}
+
+.cart-page p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.cart-page small {
+    color: #666;
+}
+
+
+/* Styling for the quantity input */
+.cart-page input[type="number"] {
+    width: 40px;
+    padding: 6px;
+    text-align: center;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 600px) {
+    .cart-page th, .cart-page td {
+        font-size: 14px;
+    }
+
+    .cart-page img {
+        width: 60px;
+    }
+}

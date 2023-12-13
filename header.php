@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link href="css/headerFooter.css" rel="stylesheet" type="text/css"> -->
     <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
-    <title>Header</title>
+    <title>BookMart</title>
 </head>
 <body>
     <!-- <div class="container-fluid"> -->
@@ -49,34 +49,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
                 <ul class="navbar-nav mr-auto ">
                 <li class="nav-item active"> <a class="nav-link text-light" href="index.php">Home <span class="sr-only">(current)</span></a> </li>
                 
-                <li class="nav-item dropdown"> <a class="nav-link text-light dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories </a>
+                <li class="nav-item dropdown"> <a class="nav-link text-light dropdown-toggle" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Categories </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
-                        <a class="dropdown-item" href="novels.html">Novels</a> 
-                        <a class="dropdown-item" href="shortstory.html">ShortStory</a>
-                        <a class="dropdown-item" href="fantacy.html">Fantasy</a>
-                        <a class="dropdown-item" href="thriller.html">Thriller</a> 
-                        <a class="dropdown-item" href="fiction.html">Fiction</a>
+                        <a class="dropdown-item" href="novels.php">Novels</a> 
+                        <a class="dropdown-item" href="shortstory.php">ShortStory</a>
+                        <a class="dropdown-item" href="fantasy.php">Fantasy</a>
+                        <a class="dropdown-item" href="#">Thriller</a> 
+                        <a class="dropdown-item" href="#">Fiction</a>
                     </div>
                 </li>
                 <li class="nav-item"> <a class="nav-link text-light" href="aboutus.php">About&nbsp;</a> </li>
                 <li id="scrollButton" class="nav-item "> <a class="nav-link text-light" href="#" style="cursor: pointer">Contact Us&nbsp;</a></li>
-                <script>
-                        // script.js
-                        document.addEventListener("DOMContentLoaded", function () {
-                        var scrollButton = document.getElementById("scrollButton");
-                        // Add a click event listener to the button
-                        scrollButton.addEventListener("click", function () {
-                        // Scroll to the bottom of the page
-                        window.scrollTo(0, document.body.scrollHeight);
-                        });
-                        });
-                </script> 
-                <li class="nav-item"> <a class="nav-link text-light" href="cart.php">&nbsp;Cart&nbsp;<i style="display: inline-block; width: 30px; height: 30px; background-color: red; border-radius: 50%; text-align: center; line-height: 30px; color: white;">
-    <?php echo $cartCount ?>
-</i>
- </a></li>
-                <?php 
+                    <script>
+                            // script.js
+                            document.addEventListener("DOMContentLoaded", function () {
+                            var scrollButton = document.getElementById("scrollButton");
+                            // Add a click event listener to the button
+                            scrollButton.addEventListener("click", function () {
+                            // Scroll to the bottom of the page
+                            window.scrollTo(0, document.body.scrollHeight);
+                            });
+                            });
+                    </script> 
+                <li class="nav-item"> 
+                    <a class="nav-link text-light" href="cart.php">&nbsp;Cart&nbsp;
+                        <i style="display: inline-block; width: 30px; height: 30px; background-color: red; border-radius: 50%; text-align: center; line-height: 30px; color: white;">
+                            <?php echo $cartCount ?>
+                        </i>
+                    </a>
+                </li>
 
+                <?php 
                 $isAdmin = false;
                 if ($_SESSION['user_type']== "Admin") {
                     $isAdmin = true;
@@ -89,10 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
                 <?php  } ?>
                 </ul>
                 <form method="post" class="form-inline my-2 my-lg-0" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="search-btn" type="submit">Search</button> -->
-                <h5 class="text-light">Welcome&nbsp;</h5><h5 class="text-info"><?php echo $_SESSION['user_name']?>&nbsp;&nbsp;&nbsp;</h5>
-                <input type="submit" class="btn btn-danger"  name="logoutForm" value="Logout"/>
+                    <h5 class="text-light">Welcome&nbsp;</h5><h5 class="text-info"><?php echo $_SESSION['user_name']?>&nbsp;&nbsp;&nbsp;</h5>
+                    <input type="submit" class="btn btn-danger"  name="logoutForm" value="Logout"/>
                 </form>
                 
             </div>

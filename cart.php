@@ -39,7 +39,6 @@
 		<link href="css/headerFooter.css" rel="stylesheet" type="text/css">
 		<link href="css/cart.css" rel="stylesheet" type="text/css">
 		<meta charset="utf-8">
-		<title>Cart</title>
 	</head>
 	<body>
 		<!-- header -->

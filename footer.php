@@ -30,11 +30,11 @@
             <div class="col-md-4">
                 <h6 style="text-transform: uppercase" class="bg-light text-dark">&ensp;Categories</h6>
                 <dl>
-                    <dd><a href="novels.html" >&ensp;Novels</a> </dd>
-                    <dd><a href="shortstory.html">&ensp;ShortStory</a></dd>
-                    <dd><a href="fantacy.html">&ensp;Fantasy</a></dd>
-                    <dd> <a href="thriller.html">&ensp;Thriller</a> </dd>
-                    <dd><a href="fiction.html">&ensp;Fiction</a></dd>			
+                    <dd><a href="novels.php" >&ensp;Novels</a> </dd>
+                    <dd><a href="shortstory.php">&ensp;ShortStory</a></dd>
+                    <dd><a href="fantacy.php">&ensp;Fantasy</a></dd>
+                    <dd> <a href="#">&ensp;Thriller</a> </dd>
+                    <dd><a href="#">&ensp;Fiction</a></dd>			
                 </dl>
             </div>
             <div class="col-md-4">
@@ -43,7 +43,7 @@
                     <dd><a href="index.php" >Home</a> </dd>
                     <dd> <a href="cart.php">Cart</a> </dd>	
                     <dd><a href="aboutus.php">About</a></dd>
-                    <dd><a href="#">Contact us</a></dd>  	
+                    <dd><a href="#">Contact us</a></dd>    
                 </dl>
             </div>
             <div class="col-md-4"> 

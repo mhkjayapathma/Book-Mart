@@ -79,13 +79,7 @@ if ($resultFiction->num_rows > 0) {
         $booksFiction[] = $rowFiction;
     }
 }
-//connecting cart table of database
-
-// function test(){
-// 	echo '<script>';
-// 	echo 'alert("test");';
-// 	echo '</script>';
-// }
+//Adding books to cart table 
 if(isset($_POST['add_to_cart'])){
 	$bookID = $_POST["bookID"];
 	
@@ -117,54 +111,39 @@ $conn->close();
 	<link href="css/indexStyle.css" rel="stylesheet" type="text/css">
 	
   </head>
-  <body style="padding-top: 70px">
+  <body style="padding-top: 73px">
   	
 		<!---Carousel--->
-		<div id="video-carousel-example" class="carousel slide carousel-fade" data-ride="carousel" >
+		<div id="video-carousel-example" class="carousel slide carousel-fade" data-bs-ride="carousel">
 			<ol class="carousel-indicators">
-				<li data-target="#video-carousel-example" data-slide-to="0" class="active"></li>
-				<li data-target="#video-carousel-example" data-slide-to="1"></li>
-				<li data-target="#video-carousel-example" data-slide-to="2"></li>
+				<li data-bs-target="#video-carousel-example" data-bs-slide-to="0" class="active"></li>
+				<li data-bs-target="#video-carousel-example" data-bs-slide-to="1"></li>
+				<li data-bs-target="#video-carousel-example" data-bs-slide-to="2"></li>
 			</ol>
-			
+
 			<div class="carousel-inner" role="listbox">
-				<div class="carousel-item active " style="height:600px; ">
-					<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
-						<source src="video1.mp4" type="video/mp4">
-					</video>
-					<div class="carousel-caption">
-						<h1>Knowledge</h1>
-					</div>	
+				<div class="carousel-item active" style="height: 600px;">
+					<img src="images/carousel1.png" class="d-block w-100" alt="Image 1">
 				</div>
-				
-				<div class="carousel-item " style="height:600px; ">
-					<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
-						<source src="video2.mp4" type="video/mp4">
-					</video>
-					<div class="carousel-caption">
-						<h1 style="color:black;">Becomes</h1>
-					</div>
+
+				<div class="carousel-item" style="height: 600px;">
+					<img src="images/carousel2.JPG" class="d-block w-100" alt="Image 2">
 				</div>
-			
-				<div class="carousel-item " style="height:600px; ">
-					<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
-						<source src="video3.mp4" type="video/mp4">
-					</video>
-					<div class="carousel-caption">
-						<h1>Power</h1>
-					</div>
+
+				<div class="carousel-item" style="height: 600px;">
+					<img src="images/carousel3.png" class="d-block w-100" alt="Image 3">
 				</div>
 			</div>
-		</div>													  
-		<a class="carousel-control-prev" href="#video-carousel-example" role="button" data-slide="prev"> 
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-			<span class="sr-only">Previous</span>
-		</a> 
-		<a class="carousel-control-next" href="#video-carousel-example" role="button" data-slide="next"> 
-			<span class="carousel-control-next-icon" aria-hidden="true"></span> 
-			<span class="sr-only">Next</span>
-		</a>
-	<!-- </div> -->
+
+			<a class="carousel-control-prev" href="#video-carousel-example" role="button" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			</a>
+			<a class="carousel-control-next" href="#video-carousel-example" role="button" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			</a>
+		</div>
+	<!-- included js for carousel moving and fading -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<br><br>
 
 	<!--- products categories--->
@@ -402,7 +381,7 @@ $conn->close();
 	  <?php include 'footer.php'; ?>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
  	<script src="js/jquery-3.4.1.min.js"></script>
-
+	
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/popper.min.js"></script> 
   <script src="js/bootstrap-4.4.1.js"></script>

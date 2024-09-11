@@ -3,7 +3,7 @@
 @include 'header.php';
  $userID = $_SESSION['user_id'];
 
- // Fetching All books from the database
+ // Fetching All books from the cart where userID = loged userID
  $queryCart = "SELECT *
  FROM book
  JOIN cart ON book.bookID = cart.bookID
@@ -79,13 +79,7 @@ if ($resultFiction->num_rows > 0) {
         $booksFiction[] = $rowFiction;
     }
 }
-//connecting cart table of database
-
-// function test(){
-// 	echo '<script>';
-// 	echo 'alert("test");';
-// 	echo '</script>';
-// }
+//Adding books to cart table 
 if(isset($_POST['add_to_cart'])){
 	$bookID = $_POST["bookID"];
 	
@@ -94,15 +88,13 @@ if(isset($_POST['add_to_cart'])){
 		echo '<script>';
 		echo 'alert("add to cart success!");';
 		echo '</script>';
-		header("Location: /Book-Mart/cart.php");
+		header("Location: cart.php");
 	   }
 	   else{
 		echo '<script>';
 		echo 'alert("add to cart fail!");';
 		echo '</script>';
 	   }
-	
- 
  }
 $conn->close();
 ?>
@@ -112,102 +104,48 @@ $conn->close();
     <meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BookMart</title>
 	<link href="css/bootstrap-4.4.1.css" rel="stylesheet">
 	<link href="css/indexStyle.css" rel="stylesheet" type="text/css">
-	
   </head>
-  <body style="padding-top: 70px">
+  <body style="padding-top: 73px">
   	
 		<!---Carousel--->
-		<div id="video-carousel-example" class="carousel slide carousel-fade" data-ride="carousel" >
+		<div id="video-carousel-example" class="carousel slide carousel-fade" data-bs-ride="carousel">
 			<ol class="carousel-indicators">
-				<li data-target="#video-carousel-example" data-slide-to="0" class="active"></li>
-				<li data-target="#video-carousel-example" data-slide-to="1"></li>
-				<li data-target="#video-carousel-example" data-slide-to="2"></li>
+				<li data-bs-target="#video-carousel-example" data-bs-slide-to="0" class="active"></li>
+				<li data-bs-target="#video-carousel-example" data-bs-slide-to="1"></li>
+				<li data-bs-target="#video-carousel-example" data-bs-slide-to="2"></li>
 			</ol>
-			
+
 			<div class="carousel-inner" role="listbox">
-				<div class="carousel-item active " style="height:600px; ">
-					<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
-						<source src="video1.mp4" type="video/mp4">
-					</video>
-					<div class="carousel-caption">
-						<h1>Knowledge</h1>
-					</div>	
+				<div class="carousel-item active" style="height: 600px;">
+					<img src="images/carousel1.png" class="d-block w-100" alt="Image 1">
 				</div>
-				
-				<div class="carousel-item " style="height:600px; ">
-					<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
-						<source src="video2.mp4" type="video/mp4">
-					</video>
-					<div class="carousel-caption">
-						<h1 style="color:black;">Becomes</h1>
-					</div>
+
+				<div class="carousel-item" style="height: 600px;">
+					<img src="images/carousel2.JPG" class="d-block w-100" alt="Image 2">
 				</div>
-			
-				<div class="carousel-item " style="height:600px; ">
-					<video class="video-fluid embed-responsive embed-responsive-16by9" autoplay loop muted>
-						<source src="video3.mp4" type="video/mp4">
-					</video>
-					<div class="carousel-caption">
-						<h1>Power</h1>
-					</div>
+
+				<div class="carousel-item" style="height: 600px;">
+					<img src="images/carousel3.png" class="d-block w-100" alt="Image 3">
 				</div>
 			</div>
-		</div>													  
-		<a class="carousel-control-prev" href="#video-carousel-example" role="button" data-slide="prev"> 
-			<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-			<span class="sr-only">Previous</span>
-		</a> 
-		<a class="carousel-control-next" href="#video-carousel-example" role="button" data-slide="next"> 
-			<span class="carousel-control-next-icon" aria-hidden="true"></span> 
-			<span class="sr-only">Next</span>
-		</a>
-	<!-- </div> -->
+
+			<a class="carousel-control-prev" href="#video-carousel-example" role="button" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			</a>
+			<a class="carousel-control-next" href="#video-carousel-example" role="button" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			</a>
+		</div>
+	<!-- included js for carousel moving and fading -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<br><br>
 
 	<!--- products categories--->
 	
   	<div class="container" style="margin-top:70px;">
 		<h2 class="category_name">New Arrival</h2>
-	  	<hr class="hr-category">
-	    <div class="row">
-		<?php foreach ($booksNewArrival as $book): ?>
-		<?php $isInCart = false; ?>
-		<?php foreach ($cart as $cartItem): ?>
-			<?php if ($book['bookID'] == $cartItem['bookID']): ?>
-				<?php $isInCart = true; ?>
-				<?php break; ?>
-			<?php endif; ?>
-		<?php endforeach; ?>
-
-		<div class="col-md-2">
-			<div class="card col-md-13"> 
-				<img src="<?php echo $book['bimage']; ?>">
-				
-				<div class="card-body">
-					<h5 class="card-title"><?php echo $book['bname']; ?></h5>
-					<p class="card-text"><?php echo $book['bauthor']; ?></p>
-					<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
-					<div class="card-footer">
-						<?php if (!$isInCart): ?>
-							<form action="" method="POST">
-								<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
-								<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-							</form>
-						<?php endif; ?>
-					</div>
-				</div>
-			</div>
-		</div>
-	<?php endforeach; ?>
-
-
-		</div>	  
-      	<br><br><br>
-
-		<h2 class="category_name">Novels</h2>
 	  	<hr class="hr-category">
 	    <div class="row">
 		<?php foreach ($booksNovel as $book): ?>
@@ -227,13 +165,55 @@ $conn->close();
 					<h5 class="card-title"><?php echo $book['bname']; ?></h5>
 					<p class="card-text"><?php echo $book['bauthor']; ?></p>
 					<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
-					<div class="card-footer">
+					<div class="">
 						<?php if (!$isInCart): ?>
 							<form action="" method="POST">
 								<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
 								<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
 							</form>
+							<?php else: ?>
+							<input type="submit" class="btn btn-danger" value="Added" name="add_to_cart" disabled>
 						<?php endif; ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php endforeach; ?>
+
+
+		</div>	  
+      	<br><br><br>
+
+		<h2 class="category_name">Novels</h2>
+	  	<hr class="hr-category">
+	    <div class="row">
+			<?php foreach ($booksNovel as $book): ?>
+			<?php $isInCart = false; ?>
+			<?php foreach ($cart as $cartItem): ?>
+				<?php if ($book['bookID'] == $cartItem['bookID']): ?>
+					<?php $isInCart = true; ?>
+					<?php break; ?>
+				<?php endif; ?>
+			<?php endforeach; ?>
+
+		<div class="col-md-2">
+			<div class="card col-md-13"> 
+				<img src="<?php echo $book['bimage']; ?>">
+				
+				<div class="card-body">
+					<h5 class="card-title"><?php echo $book['bname']; ?></h5>
+					<p class="card-text"><?php echo $book['bauthor']; ?></p>
+					<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
+					<div class="">
+						<?php if (!$isInCart): ?>
+							<form action="" method="POST">
+								<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
+								<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
+							</form>
+						<?php else: ?>
+								<input type="submit" class="btn btn-danger" value="Added" name="add_to_cart" disabled>
+						<?php endif; ?>
+
 					</div>
 				</div>
 			</div>
@@ -241,7 +221,7 @@ $conn->close();
 	<?php endforeach; ?>
 		</div>	  
 	    <div class="more-btn-class">
-	  	<a class="more-btn" href="novels.html" > More </a>
+	  	<a class="more-btn" href="novels.php" > More </a>
 	    </div>
 	
 	    <br><br><br>
@@ -249,7 +229,14 @@ $conn->close();
 		<h2 class="category_name">Short Story</h2>
 		<hr class="hr-category">
 		<div class="row">
-		<?php foreach ($booksShort as $book): ?>
+			<?php foreach ($booksShort as $book): ?>
+				<?php $isInCart = false; ?>
+				<?php foreach ($cart as $cartItem): ?>
+					<?php if ($book['bookID'] == $cartItem['bookID']): ?>
+						<?php $isInCart = true; ?>
+						<?php break; ?>
+					<?php endif; ?>
+			<?php endforeach; ?>
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
 				<img src="<?php echo $book['bimage']; ?>">
@@ -258,11 +245,15 @@ $conn->close();
 						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
-						<div class="card-footer">
-						<form action="" method="POST">
-							<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
-							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-						</form>
+						<div class="">
+							<?php if (!$isInCart): ?>
+							<form action="" method="POST">
+								<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
+								<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
+							</form>
+							<?php else: ?>
+								<input type="submit" class="btn btn-danger" value="Added" name="add_to_cart" disabled>
+						<?php endif; ?>
 					</div>
 					</div>
            	 	</div>
@@ -270,7 +261,7 @@ $conn->close();
 		<?php endforeach; ?>
 		</div>
 	    <div class="more-btn-class">
-	  	<a class="more-btn" href="shortstory.html" > More </a>
+	  	<a class="more-btn" href="shortstory.php" > More </a>
 	  	</div>
 		<br><br><br>
 
@@ -278,7 +269,14 @@ $conn->close();
 		<h2 class="category_name">Fantasy</h2>
 		<hr class="hr-category">
 	    <div class="row">
-		<?php foreach ($booksFantacy as $book): ?>
+			<?php foreach ($booksFantacy as $book): ?>
+					<?php $isInCart = false; ?>
+					<?php foreach ($cart as $cartItem): ?>
+						<?php if ($book['bookID'] == $cartItem['bookID']): ?>
+							<?php $isInCart = true; ?>
+							<?php break; ?>
+						<?php endif; ?>
+			<?php endforeach; ?>
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
 				<img src="<?php echo $book['bimage']; ?>">
@@ -287,11 +285,15 @@ $conn->close();
 						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
-						<div class="card-footer">
-						<form action="" method="POST">
-							<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
-							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-						</form>
+						<div class="">
+							<?php if (!$isInCart): ?>
+								<form action="" method="POST">
+									<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
+									<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
+								</form>
+								<?php else: ?>
+									<input type="submit" class="btn btn-danger" value="Added" name="add_to_cart" disabled>
+							<?php endif; ?>
 					</div>
 					</div>
            	 	</div>
@@ -299,7 +301,7 @@ $conn->close();
 		<?php endforeach; ?>
 		</div>
 		<div class="more-btn-class">
-	  	<a class="more-btn" href="fantacy.html" > More </a>
+	  	<a class="more-btn" href="fantasy.php" > More </a>
 	  	</div>
 		<br><br><br>
 
@@ -308,6 +310,13 @@ $conn->close();
 		<hr class="hr-category">
 		<div class="row">
 			<?php foreach ($booksThriller as $book): ?>
+						<?php $isInCart = false; ?>
+						<?php foreach ($cart as $cartItem): ?>
+							<?php if ($book['bookID'] == $cartItem['bookID']): ?>
+								<?php $isInCart = true; ?>
+								<?php break; ?>
+							<?php endif; ?>
+			<?php endforeach; ?>
 				<div class="col-md-2">
 					<div class="card  col-md-13"> 
 					<img src="<?php echo $book['bimage']; ?>">
@@ -316,12 +325,16 @@ $conn->close();
 							<h5 class="card-title"><?php echo $book['bname']; ?></h5>
 							<p class="card-text"><?php echo $book['bauthor']; ?></p>
 							<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
-							<div class="card-footer">
-							<form action="" method="POST">
-							<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
-							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-						</form>
-					</div>
+							<div class="">
+								<?php if (!$isInCart): ?>
+									<form action="" method="POST">
+										<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
+										<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
+									</form>
+									<?php else: ?>
+										<input type="submit" class="btn btn-danger" value="Added" name="add_to_cart" disabled>
+								<?php endif; ?>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -335,7 +348,14 @@ $conn->close();
 		<h2 class="category_name">Fiction</h2>
         <hr class="hr-category">
         <div class="row">
-		<?php foreach ($booksFiction as $book): ?>
+			<?php foreach ($booksFiction as $book): ?>
+					<?php $isInCart = false; ?>
+					<?php foreach ($cart as $cartItem): ?>
+						<?php if ($book['bookID'] == $cartItem['bookID']): ?>
+							<?php $isInCart = true; ?>
+							<?php break; ?>
+						<?php endif; ?>
+			<?php endforeach; ?>
 			<div class="col-md-2">
 			  	<div class="card  col-md-13"> 
 				<img src="<?php echo $book['bimage']; ?>">
@@ -344,12 +364,16 @@ $conn->close();
 						<h5 class="card-title"><?php echo $book['bname']; ?></h5>
 						<p class="card-text"><?php echo $book['bauthor']; ?></p>
 						<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>
-						<div class="card-footer">
-						<form action="" method="POST">
-							<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
-							<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
-						</form>
-					</div>
+						<div class="">
+							<?php if (!$isInCart): ?>
+								<form action="" method="POST">
+									<input type="hidden" name="bookID" value="<?php echo $book['bookID']; ?>"/>
+									<input type="submit" class="btn btn-primary" value="Add to cart" name="add_to_cart">
+								</form>
+								<?php else: ?>
+									<input type="submit" class="btn btn-danger" value="Added" name="add_to_cart" disabled>
+							<?php endif; ?>
+						</div>
 					</div>
            	 	</div>
 			</div>
@@ -402,7 +426,7 @@ $conn->close();
 	  <?php include 'footer.php'; ?>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
  	<script src="js/jquery-3.4.1.min.js"></script>
-
+	
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/popper.min.js"></script> 
   <script src="js/bootstrap-4.4.1.js"></script>

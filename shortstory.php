@@ -4,7 +4,7 @@
 
 $userID = $_SESSION['user_id'];
 
-// Fetching All books from the database
+//Fetching All books from the cart where userID = loged userID
 $queryCart = "SELECT *
 FROM book
 JOIN cart ON book.bookID = cart.bookID

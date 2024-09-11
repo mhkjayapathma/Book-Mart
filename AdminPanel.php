@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (move_uploaded_file($image_tmp_name, $image_path)) {
             $sql = "INSERT INTO book (bname, bauthor, bprice, btype, bimage) VALUES ('$name', '$author', '$price', '$type', '$image_path')";
             if ($conn->query($sql) === TRUE) {
-                header("Location: /Book-Mart/index.php");
+                header("Location: index.php");
             } else {
                 echo '<script>';
                 echo 'alert("Book insertion failed!");';
@@ -132,7 +132,7 @@ if(isset($_GET['delete'])){
        header('location:AdminPanel.php');
        $message[] = 'Product has been deleted';
     }else{
-       header('location:admin.php');
+       header('location:AdminPanel.php');
        $message[] = 'Product could not be deleted';
     };
  }
@@ -307,7 +307,7 @@ $conn->close();
             imageElement.src = book.bimage;
 
             document.getElementById('imageURL').value = book.bimage;
-
+            //Add and Save button changing
             var addBtn = document.getElementById('actionAdd');
             var saveBtn = document.getElementById('actionSave');
 
@@ -315,22 +315,19 @@ $conn->close();
             saveBtn.style.display = 'block';
         }
 
-        function previewImage(input) {
+        function previewImage(input) {   
+            var imageContainer = $(".image-container img")[0];
+            var fileInput = input.files[0];
+        
+            if (fileInput) {
+                var reader = new FileReader();
 
-            
-        var imageContainer = $(".image-container img")[0];
-        var fileInput = input.files[0];
-       
-        if (fileInput) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                imageContainer.src = e.target.result;
-            };
-
-            reader.readAsDataURL(fileInput);
+                reader.onload = function (e) {
+                    imageContainer.src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput);
+            }
         }
-    }
     </script>
 </body>
 

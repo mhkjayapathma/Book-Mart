@@ -59,9 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
                     </div>
                 </li>
                 <li class="nav-item"> <a class="nav-link text-light" href="aboutus.php">About&nbsp;</a> </li>
-                <li id="scrollButton" class="nav-item "> <a class="nav-link text-light" href="#" style="cursor: pointer">Contact Us&nbsp;</a></li>
+                <li id="scrollButton" class="nav-item "> <a class="nav-link text-light" style="cursor: pointer">Contact Us&nbsp;</a></li>
                     <script>
-                            // script.js
                             document.addEventListener("DOMContentLoaded", function () {
                             var scrollButton = document.getElementById("scrollButton");
                             // Add a click event listener to the button
@@ -80,19 +79,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logoutForm'])) {
                 </li>
 
                 <?php 
-                $isAdmin = false;
-                if ($_SESSION['user_type']== "Admin") {
-                    $isAdmin = true;
-                }
-                if ($isAdmin) {
-                ?>
-                    <li class="nav-item" id="adminPanelLink"> 
-                        <a class="nav-link text-light" href="AdminPanel.php">&nbsp;Admin Panel</a>
-                    </li>
-                <?php  } ?>
+                    $isAdmin = false;
+                    if ($_SESSION['user_type']== "Admin") {
+                        $isAdmin = true;
+                    }
+                    if ($isAdmin) {
+                    ?>
+                        <li class="nav-item" id="adminPanelLink"> <a class="nav-link text-light" href="AdminPanel.php">&nbsp;Admin Panel</a></li>
+                <?php  } 
+                    // if userID = Super Admin ID, display User Panel 
+                    if($userID==1){ ?>
+                        <li class="nav-item"> <a class="nav-link text-light" href="users.php">User Panel&nbsp;</a> </li>
+                <?php } ?>
                 </ul>
                 <form method="post" class="form-inline my-2 my-lg-0" action ="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <h5 class="text-light">Welcome&nbsp;</h5><h5 class="text-info"><?php echo $_SESSION['user_name']?>&nbsp;&nbsp;&nbsp;</h5>
+                    <h5 class="text-light">Welcome&nbsp;</h5>
+                    <?php
+                        if($_SESSION['gender']=="Male"){
+                            echo "<h5 class='text-info'>Mr.&nbsp;</h5>";
+                        }else{
+                            echo "<h5 class='text-info'>Mrs.&nbsp;</h5>";
+                        }
+                    ?>
+                    <h5 class="text-info">
+                        <?php echo $_SESSION['user_name']?>&nbsp;&nbsp;&nbsp;
+                    </h5>
                     <input type="submit" class="btn btn-danger"  name="logoutForm" value="Logout"/>
                 </form>
                 

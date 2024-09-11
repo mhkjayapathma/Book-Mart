@@ -27,15 +27,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `book`
 --
 
-CREATE TABLE `book` (
-  `bookID` int(11) NOT NULL,
-  `btype` varchar(20) NOT NULL,
-  `bname` varchar(255) DEFAULT NULL,
-  `bauthor` varchar(255) DEFAULT NULL,
-  `bimage` varchar(255) DEFAULT NULL,
-  `bprice` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Dumping data for table `book`
 --

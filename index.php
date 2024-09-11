@@ -3,7 +3,7 @@
 @include 'header.php';
  $userID = $_SESSION['user_id'];
 
- // Fetching All books from the database
+ // Fetching All books from the cart where userID = loged userID
  $queryCart = "SELECT *
  FROM book
  JOIN cart ON book.bookID = cart.bookID
@@ -88,7 +88,7 @@ if(isset($_POST['add_to_cart'])){
 		echo '<script>';
 		echo 'alert("add to cart success!");';
 		echo '</script>';
-		header("Location: /Book-Mart/cart.php");
+		header("Location: cart.php");
 	   }
 	   else{
 		echo '<script>';
@@ -221,7 +221,7 @@ $conn->close();
 	<?php endforeach; ?>
 		</div>	  
 	    <div class="more-btn-class">
-	  	<a class="more-btn" href="novels.html" > More </a>
+	  	<a class="more-btn" href="novels.php" > More </a>
 	    </div>
 	
 	    <br><br><br>
@@ -261,7 +261,7 @@ $conn->close();
 		<?php endforeach; ?>
 		</div>
 	    <div class="more-btn-class">
-	  	<a class="more-btn" href="shortstory.html" > More </a>
+	  	<a class="more-btn" href="shortstory.php" > More </a>
 	  	</div>
 		<br><br><br>
 
@@ -301,7 +301,7 @@ $conn->close();
 		<?php endforeach; ?>
 		</div>
 		<div class="more-btn-class">
-	  	<a class="more-btn" href="fantacy.html" > More </a>
+	  	<a class="more-btn" href="fantasy.php" > More </a>
 	  	</div>
 		<br><br><br>
 

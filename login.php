@@ -1,7 +1,8 @@
 <?php
 @include 'configDatabase.php';
 session_start();
-// Function to sanitize user input
+
+// Function to sanitize(avoiding spaces between the words) user input
 function sanitizeInput($data)
 {
     global $conn;  // Access the global connection variable
@@ -11,18 +12,10 @@ function sanitizeInput($data)
     return $conn->real_escape_string($data);
 }
 
-function checkCartCount() {
-	
-    
-    // Display the count using JavaScript alert
-  
-}
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
-	$inputEmail = $_POST['email'];  // Replace with the actual input from your form
-	$inputPassword = $_POST['password'];  // Replace with the actual input from your form
+	$inputEmail = $_POST['email'];  
+	$inputPassword = $_POST['password'];  //get user input
 	
 	$query = "SELECT * FROM user WHERE email = ? LIMIT 1";
 	$stmt = $conn->prepare($query);
@@ -32,12 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	if ($result->num_rows > 0) {
 		$row = $result->fetch_assoc();
-		// Verify the password
+		// Verify the password(below password_verify function can  be decrypt the password)
 		if (password_verify($inputPassword, $row['password'])) {
 			// Passwords match
 			$_SESSION['user_id'] = $row['userID']; 
 			$_SESSION['user_type'] = $row['userType']; 
 			$_SESSION['user_name'] = $row['uname'];
+			$_SESSION['gender'] = $row['gender']; //pass to header to display Mrs or Mr
 	
 			if (isset($_SESSION['user_id'])) {
 				// Assuming you have already started the session
@@ -47,14 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				exit();
 			}
 		} else {
-
-			echo "Input Password: $inputPassword<br>";
-			echo "Stored Hashed Password: {$row['password']}<br>";
-
 			// Passwords do not match, login failed
-			// echo "<script>";
-			// echo "alert('Invalid Password!');";
-			// echo "</script>";
+			echo "<script>";
+			echo "alert('Invalid Password!');";
+			echo "</script>";
 		}
 	} else {
 		// No matching user found, login failed

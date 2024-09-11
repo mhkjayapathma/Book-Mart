@@ -5,7 +5,7 @@
 
 	$userID = $_SESSION['user_id'];
 	
-	// Fetching All books from the database
+	// Fetching All books from the cart where userID = loged userID
     $queryAllBook = "SELECT *
 	FROM book
 	JOIN cart ON book.bookID = cart.bookID
@@ -27,7 +27,7 @@
 			
 		$remove_sql= "DELETE FROM `cart` WHERE cartID=$cartID";
 		if ($conn->query($remove_sql) === TRUE) {
-			header("Location: /Book-Mart/cart.php");
+			header("Location: cart.php");
 		}
 	}
 ?>
@@ -96,15 +96,13 @@
 		<?php include 'footer.php'; ?>
 	</body>
 	<script>
+		function calcTotal(quantity , bookid ,price) {
+			// calculation logic using the 'quantity' parameter
+			var total = quantity * price;
 
-    function calcTotal(quantity , bookid ,price) {
-        // calculation logic using the 'quantity' parameter
-        var total = quantity * price;
-
-        // Display calculated total
-        
-		document.getElementById('Total'+bookid).value = "Rs: " +total+".00/=";
-    }
+			// Display calculated total
+			document.getElementById('Total'+bookid).value = "Rs: " +total+".00/=";
+		}
 	</script>
 
 </html>

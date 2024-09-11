@@ -4,7 +4,7 @@
 
 $userID = $_SESSION['user_id'];
 
-// Fetching All books from the database
+// // Fetching All books from the cart where userID = loged userID
 $queryCart = "SELECT *
 FROM book
 JOIN cart ON book.bookID = cart.bookID
@@ -39,7 +39,7 @@ if(isset($_POST['add_to_cart'])){
 		echo '<script>';
 		echo 'alert("add to cart success!");';
 		echo '</script>';
-		header("Location: /Book-Mart/cart.php");
+		header("Location: cart.php");
 	   }
 	   else{
 		echo '<script>';
@@ -89,11 +89,12 @@ $conn->close();
 						<?php break; ?>
 					<?php endif; ?>
 				<?php endforeach; ?>
-
+						<?php echo '<script>Console.log("'. $book[] .'")</script>' ?>
 				<div class="col-md-2">
 					<div class="card col-md-13"> 
 						<img src="<?php echo $book['bimage']; ?>">
 						<div class="card-body">
+							<h5><?php echo $book['bimage']; ?></h5>
 							<h5 class="card-title"><?php echo $book['bname']; ?></h5>
 							<p class="card-text"><?php echo $book['bauthor']; ?></p>
 							<p class="card-price">LKR : <?php echo $book['bprice']; ?>.00/=</p>

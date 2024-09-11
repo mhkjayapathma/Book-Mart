@@ -35,12 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           echo '</script>';
       }else if (!preg_match($pattern, $pw)) {
         echo '<script>';
-        echo 'alert("Password must contain at least one special character, one digit, one lowercase letter, one uppercase letter, and have a minimum length of 8 characters.");';
+        echo 'alert("Password must contain at least one special character and have a minimum length of 8 characters.");';
         echo '</script>';
-        // Additional error handling or redirection logic can be added here
     } else {
-
-        
         $query = "SELECT * FROM user WHERE email = ? LIMIT 1";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("s", $email);
@@ -59,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
            $sql = "INSERT INTO user (uname, email, contactNo, uAddress, password, gender, userType) VALUES ('$name', '$email', '$contactNo', '$address', '$hashedPassword', '$gender', '$utype')";
            
            if ($conn->query($sql) === TRUE) {
-               header("Location: /Book-Mart/login.php");
+               header("Location: login.php");
                exit();
            } else {
                echo '<script>';
